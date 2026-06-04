@@ -218,6 +218,74 @@
 
   </main>
 
+  <!-- ═══════════ COLLABORATE ═══════════ -->
+  <section class="collaborate" id="collaborate" aria-label="Kolaborasi">
+    <div class="container">
+
+      <header class="collaborate__header reveal">
+        <p class="section-label">Kolaborasi</p>
+        <h2 class="section-title">Mari bergerak bersama.</h2>
+        <p class="collaborate__subtext">
+          Kamu kreator, distributor, atau brand yang mau tumbuh bareng MOOX?
+          Isi form di bawah.
+        </p>
+      </header>
+
+      <div class="collaborate__body">
+
+        <div id="collaborate-limit" class="collaborate__notice" hidden>
+          Kamu sudah mengirim maksimal 3 pesan. Kami akan segera menghubungimu.
+        </div>
+
+        <form id="collaborate-form" class="collaborate__form reveal"
+              name="collaborate"
+              method="POST"
+              data-netlify="true"
+              data-netlify-honeypot="bot-field">
+          <input type="hidden" name="form-name" value="collaborate" />
+          <p class="hidden"><label>Don't fill this out: <input name="bot-field" /></label></p>
+
+          <div class="form-group">
+            <label for="collab-name" class="form-label">Nama</label>
+            <input type="text" id="collab-name" name="name" class="form-input" required />
+          </div>
+
+          <div class="form-group">
+            <label for="collab-email" class="form-label">Email</label>
+            <input type="email" id="collab-email" name="email" class="form-input" required />
+          </div>
+
+          <div class="form-group">
+            <label for="collab-type" class="form-label">Tipe Kolaborasi</label>
+            <select id="collab-type" name="type" class="form-input form-select" required>
+              <option value="" disabled selected></option>
+              <option value="Kreator Konten">Kreator Konten</option>
+              <option value="Distributor / Reseller">Distributor / Reseller</option>
+              <option value="Brand Partnership">Brand Partnership</option>
+              <option value="Lainnya">Lainnya</option>
+            </select>
+          </div>
+
+          <div class="form-group">
+            <label for="collab-message" class="form-label">
+              Pesan <span class="form-optional">(opsional)</span>
+            </label>
+            <textarea id="collab-message" name="message"
+                      class="form-input form-textarea"
+                      placeholder="Ceritakan lebih lanjut..."></textarea>
+          </div>
+
+          <button type="submit" class="form-submit">Kirim</button>
+        </form>
+
+        <div id="collaborate-thanks" class="collaborate__notice" hidden>
+          Terima kasih! Kami akan segera menghubungimu.
+        </div>
+
+      </div>
+    </div>
+  </section>
+
   <!-- ═══════════ FOOTER ═══════════ -->
   <footer class="footer" id="footer" role="contentinfo">
     <div class="container footer__inner">
