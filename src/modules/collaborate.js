@@ -9,16 +9,33 @@ function incrementCount() {
 }
 
 export function initCollaborate() {
+  const cta = document.getElementById('collaborate-cta')
+  const openBtn = document.getElementById('collaborate-open')
+  const closeBtn = document.getElementById('collaborate-close')
+  const formWrap = document.getElementById('collaborate-form-wrap')
   const form = document.getElementById('collaborate-form')
   const confirm = document.getElementById('collaborate-confirm')
 
   if (!form) return
 
   if (getCount() >= 3) {
-    form.hidden = true
+    cta.hidden = true
     confirm.hidden = false
     return
   }
+
+  openBtn.addEventListener('click', () => {
+    cta.hidden = true
+    formWrap.classList.add('is-open')
+    setTimeout(() => {
+      formWrap.scrollIntoView({ behavior: 'smooth', block: 'nearest' })
+    }, 50)
+  })
+
+  closeBtn.addEventListener('click', () => {
+    formWrap.classList.remove('is-open')
+    cta.hidden = false
+  })
 
   form.addEventListener('submit', async e => {
     e.preventDefault()
@@ -32,7 +49,8 @@ export function initCollaborate() {
     } catch (_) {}
 
     incrementCount()
-    form.hidden = true
+    formWrap.classList.remove('is-open')
+    cta.hidden = true
     confirm.hidden = false
   })
 }

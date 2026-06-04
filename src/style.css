@@ -614,6 +614,76 @@ body {
   max-width: 640px;
 }
 
+/* CTA button */
+.collab-open {
+  display: inline-flex;
+  align-items: center;
+  font-family: var(--font-body);
+  font-size: var(--text-base);
+  font-weight: 700;
+  letter-spacing: 0.02em;
+  color: var(--color-off-white);
+  background-color: var(--color-teal);
+  border: none;
+  border-radius: var(--radius-md);
+  padding: var(--space-16) var(--space-32);
+  cursor: pointer;
+  transition: background-color var(--transition-base);
+}
+
+.collab-open:hover {
+  background-color: var(--color-teal-light);
+}
+
+/* Form reveal — CSS grid-row collapse trick */
+.collaborate__form-wrap {
+  display: grid;
+  grid-template-rows: 0fr;
+  transition: grid-template-rows 420ms cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.collaborate__form-wrap.is-open {
+  grid-template-rows: 1fr;
+}
+
+.collaborate__form-inner {
+  min-height: 0;
+  overflow: hidden;
+  opacity: 0;
+  transition: opacity 300ms ease 120ms;
+  padding-top: var(--space-32);
+}
+
+.collaborate__form-wrap.is-open .collaborate__form-inner {
+  opacity: 1;
+}
+
+/* Close button */
+.collab-close {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-8);
+  font-family: var(--font-body);
+  font-size: var(--text-sm);
+  font-weight: 500;
+  color: var(--color-text-muted);
+  background: none;
+  border: none;
+  padding: 0;
+  margin-bottom: var(--space-24);
+  cursor: pointer;
+  transition: color var(--transition-base);
+}
+
+.collab-close:hover {
+  color: var(--color-black);
+}
+
+.collab-close svg {
+  display: block;
+  flex-shrink: 0;
+}
+
 .collaborate__form {
   display: flex;
   flex-direction: column;
@@ -743,7 +813,8 @@ body {
   }
 
   .form-input,
-  .form-submit {
+  .form-submit,
+  .collab-open {
     min-height: 44px;
   }
 }
