@@ -10,14 +10,13 @@ function incrementCount() {
 
 export function initCollaborate() {
   const form = document.getElementById('collaborate-form')
-  const thanks = document.getElementById('collaborate-thanks')
-  const limit = document.getElementById('collaborate-limit')
+  const confirm = document.getElementById('collaborate-confirm')
 
   if (!form) return
 
   if (getCount() >= 3) {
     form.hidden = true
-    limit.hidden = false
+    confirm.hidden = false
     return
   }
 
@@ -34,6 +33,6 @@ export function initCollaborate() {
 
     incrementCount()
     form.hidden = true
-    thanks.hidden = false
+    confirm.hidden = false
   })
 }

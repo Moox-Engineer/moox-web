@@ -233,10 +233,6 @@
 
       <div class="collaborate__body">
 
-        <div id="collaborate-limit" class="collaborate__notice" hidden>
-          Kamu sudah mengirim maksimal 3 pesan. Kami akan segera menghubungimu.
-        </div>
-
         <form id="collaborate-form" class="collaborate__form reveal"
               name="collaborate"
               method="POST"
@@ -245,25 +241,15 @@
           <input type="hidden" name="form-name" value="collaborate" />
           <p class="hidden"><label>Don't fill this out: <input name="bot-field" /></label></p>
 
-          <div class="form-group">
-            <label for="collab-name" class="form-label">Nama</label>
-            <input type="text" id="collab-name" name="name" class="form-input" required />
-          </div>
-
-          <div class="form-group">
-            <label for="collab-email" class="form-label">Email</label>
-            <input type="email" id="collab-email" name="email" class="form-input" required />
-          </div>
-
-          <div class="form-group">
-            <label for="collab-type" class="form-label">Tipe Kolaborasi</label>
-            <select id="collab-type" name="type" class="form-input form-select" required>
-              <option value="" disabled selected></option>
-              <option value="Kreator Konten">Kreator Konten</option>
-              <option value="Distributor / Reseller">Distributor / Reseller</option>
-              <option value="Brand Partnership">Brand Partnership</option>
-              <option value="Lainnya">Lainnya</option>
-            </select>
+          <div class="form-row">
+            <div class="form-group">
+              <label for="collab-name" class="form-label">Nama</label>
+              <input type="text" id="collab-name" name="name" class="form-input" required />
+            </div>
+            <div class="form-group">
+              <label for="collab-email" class="form-label">Email</label>
+              <input type="email" id="collab-email" name="email" class="form-input" required />
+            </div>
           </div>
 
           <div class="form-group">
@@ -272,14 +258,35 @@
             </label>
             <textarea id="collab-message" name="message"
                       class="form-input form-textarea"
+                      rows="3"
                       placeholder="Ceritakan lebih lanjut..."></textarea>
           </div>
 
-          <button type="submit" class="form-submit">Kirim</button>
+          <div class="form-row form-row--action">
+            <div class="form-group">
+              <label for="collab-type" class="form-label">Tipe Kolaborasi</label>
+              <select id="collab-type" name="type" class="form-input form-select" required>
+                <option value="" disabled selected></option>
+                <option value="Kreator Konten">Kreator Konten</option>
+                <option value="Distributor / Reseller">Distributor / Reseller</option>
+                <option value="Brand Partnership">Brand Partnership</option>
+                <option value="Lainnya">Lainnya</option>
+              </select>
+            </div>
+            <button type="submit" class="form-submit">Kirim</button>
+          </div>
         </form>
 
-        <div id="collaborate-thanks" class="collaborate__notice" hidden>
-          Terima kasih! Kami akan segera menghubungimu.
+        <div id="collaborate-confirm" class="collaborate__confirm" hidden>
+          <div class="confirm__icon" aria-hidden="true">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                 stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <circle cx="12" cy="12" r="10"/>
+              <polyline points="8 12 11 15 16 9"/>
+            </svg>
+          </div>
+          <h3 class="confirm__heading">Pesan kamu sudah kami terima.</h3>
+          <p class="confirm__subtext">Tim MOOX akan menghubungimu segera.</p>
         </div>
 
       </div>
