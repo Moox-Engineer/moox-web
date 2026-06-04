@@ -613,7 +613,13 @@ body {
   opacity: 0.7;
 }
 
-.footer__instagram {
+.footer__socials {
+  display: flex;
+  align-items: center;
+  gap: var(--space-24);
+}
+
+.footer__social {
   display: inline-flex;
   align-items: center;
   justify-content: center;
@@ -621,11 +627,11 @@ body {
   transition: opacity var(--transition-base);
 }
 
-.footer__instagram:hover {
+.footer__social:hover {
   opacity: 0.7;
 }
 
-.footer__instagram svg {
+.footer__social svg {
   display: block;
 }
 
