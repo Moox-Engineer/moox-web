@@ -41,15 +41,70 @@ button {
    ============================================================ */
 
 :root {
-  /* Colors */
-  --color-teal:        #1d7a78;
-  --color-teal-light:  #28a09d;
-  --color-teal-subtle: rgba(29, 122, 120, 0.08);
-  --color-black:       #0f1010;
-  --color-off-white:   #f5f5f2;
-  --color-surface:     #ffffff;
-  --color-border:      rgba(15, 16, 16, 0.08);
-  --color-text-muted:  rgba(15, 16, 16, 0.48);
+  /* ── Primitive scales (Smart Glasses Design System · Color v2.0) ── */
+  /* Teal — primary brand · trust, structure (anchor 700) */
+  --teal-50:  #ECF7F8;
+  --teal-100: #CFEBED;
+  --teal-200: #A6DADE;
+  --teal-300: #6FC3C9;
+  --teal-400: #2FA3AC;
+  --teal-500: #14858E;
+  --teal-600: #0B6B73;
+  --teal-700: #075056;
+  --teal-800: #093E43;
+  --teal-900: #0A3034;
+  --teal-950: #052023;
+  /* Cyan — accent · intelligence, signal (anchor 400) */
+  --cyan-50:  #E0FCFE;
+  --cyan-100: #B8F6FB;
+  --cyan-200: #7DEDF5;
+  --cyan-300: #3CE0EC;
+  --cyan-400: #00CBDC;
+  --cyan-500: #00AAB9;
+  --cyan-600: #008A97;
+  --cyan-700: #016E78;
+  --cyan-800: #08585F;
+  --cyan-900: #0B4147;
+  --cyan-950: #04282C;
+  /* Slate — cool neutral · surfaces, text */
+  --slate-50:  #F4F7F8;
+  --slate-100: #E7ECEE;
+  --slate-200: #D0D9DC;
+  --slate-300: #AEBCC1;
+  --slate-400: #7E9097;
+  --slate-500: #5C6E75;
+  --slate-600: #46565C;
+  --slate-700: #364449;
+  --slate-800: #232E32;
+  --slate-900: #161F22;
+  --slate-950: #0D1518;
+
+  /* ── Semantic tokens — light mode ── */
+  --color-teal:        var(--teal-700);   /* color/text/brand · main button */
+  --color-teal-hover:  var(--teal-600);   /* main button hover */
+  --color-cyan:        var(--cyan-400);   /* color/border/focus · accent */
+  --color-accent-text: var(--cyan-600);   /* color/text/accent (light) */
+  --color-teal-subtle: var(--teal-50);    /* color/bg/brand-soft */
+  --color-black:       var(--slate-950);  /* color/text/primary (light) */
+  --color-off-white:   var(--slate-50);   /* color/bg/canvas (light) */
+  --color-surface:     #ffffff;           /* color/bg/surface (light) */
+  --color-border:      var(--slate-200);  /* color/border/default */
+  --color-divider:     var(--slate-100);  /* color/border/divider */
+  --color-text-muted:  var(--slate-500);  /* color/text/alternate (light) */
+  --color-text-secondary: var(--slate-700); /* color/text/secondary (light) */
+
+  /* ── Semantic tokens — dark mode (dark sections) ── */
+  --dark-canvas:         var(--slate-950); /* color/bg/canvas (dark) */
+  --dark-surface:        var(--slate-900); /* color/bg/surface (dark) */
+  --dark-text-primary:   var(--slate-50);  /* color/text/primary (dark) */
+  --dark-text-secondary: var(--slate-300); /* color/text/secondary (dark) */
+  --dark-text-brand:     var(--cyan-300);  /* color/text/brand (dark) */
+  --dark-text-accent:    var(--cyan-400);  /* color/text/accent (dark) */
+
+  /* ── Gradients ── */
+  --gradient-brand:  linear-gradient(135deg, #075056 0%, #00CBDC 100%);
+  --gradient-aurora: linear-gradient(110deg, #075056 0%, #14858E 45%, #00CBDC 100%);
+  --gradient-depth:  linear-gradient(180deg, #0A3034 0%, #0D1518 100%);
 
   /* Typography — single font family across all roles */
   --font-heading: 'Plus Jakarta Sans', ui-sans-serif, sans-serif;
@@ -90,11 +145,11 @@ button {
   --radius-sm: 4px;
   --radius-md: 8px;
   --shadow-card:
-    0 1px 2px rgba(15, 16, 16, 0.04),
-    0 4px 16px rgba(15, 16, 16, 0.06);
+    0 1px 2px rgba(13, 21, 24, 0.04),
+    0 4px 16px rgba(13, 21, 24, 0.06);
   --shadow-card-hover:
-    0 4px 8px rgba(15, 16, 16, 0.06),
-    0 12px 40px rgba(29, 122, 120, 0.12);
+    0 4px 8px rgba(13, 21, 24, 0.06),
+    0 12px 40px rgba(7, 80, 86, 0.14);
   --transition-base: 200ms cubic-bezier(0.4, 0, 0.2, 1);
   --transition-slow: 400ms cubic-bezier(0.4, 0, 0.2, 1);
 }
@@ -192,7 +247,7 @@ body {
 }
 
 .nav--scrolled {
-  background-color: rgba(245, 245, 242, 0.88);
+  background-color: rgba(244, 247, 248, 0.88);
   backdrop-filter: blur(12px);
   -webkit-backdrop-filter: blur(12px);
   border-bottom-color: var(--color-border);
@@ -247,11 +302,17 @@ body {
 .hero__glow {
   position: absolute;
   inset: 0;
-  background: radial-gradient(
-    ellipse 70% 80% at 90% 50%,
-    rgba(29, 122, 120, 0.13) 0%,
-    transparent 65%
-  );
+  background:
+    radial-gradient(
+      ellipse 50% 55% at 96% 30%,
+      rgba(0, 203, 220, 0.10) 0%,
+      transparent 60%
+    ),
+    radial-gradient(
+      ellipse 70% 80% at 90% 50%,
+      rgba(7, 80, 86, 0.13) 0%,
+      transparent 65%
+    );
   pointer-events: none;
   z-index: 0;
 }
@@ -285,11 +346,15 @@ body {
 
 .hero__tagline span {
   color: var(--color-teal);
+  background: linear-gradient(105deg, var(--teal-700) 0%, var(--teal-500) 55%, var(--cyan-600) 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
 }
 
 .hero__subtitle {
   font-size: var(--text-lg);
-  color: var(--color-text-muted);
+  color: var(--color-text-secondary);
   max-width: 44ch;
   line-height: 1.7;
 }
@@ -307,7 +372,7 @@ body {
   .hero__glow {
     background: radial-gradient(
       ellipse 100% 50% at 50% 90%,
-      rgba(29, 122, 120, 0.1) 0%,
+      rgba(7, 80, 86, 0.1) 0%,
       transparent 70%
     );
   }
@@ -319,8 +384,9 @@ body {
 
 .manifesto {
   padding-block: var(--section-padding);
-  background-color: var(--color-black);
-  color: var(--color-off-white);
+  background: var(--gradient-depth);
+  background-color: var(--dark-canvas);
+  color: var(--dark-text-primary);
 }
 
 .manifesto__text {
@@ -333,7 +399,7 @@ body {
 }
 
 .manifesto__text em {
-  color: var(--color-teal-light);
+  color: var(--dark-text-accent);
   font-style: normal;
 }
 
@@ -460,7 +526,7 @@ body {
 .product-row__desc {
   font-family: var(--font-body);
   font-size: var(--text-base);
-  color: var(--color-text-muted);
+  color: var(--color-text-secondary);
   line-height: 1.75;
   max-width: 40ch;
 }
@@ -531,8 +597,8 @@ body {
 
 .why {
   padding-block: var(--section-padding);
-  background-color: var(--color-black);
-  color: var(--color-off-white);
+  background-color: var(--dark-canvas);
+  color: var(--dark-text-primary);
 }
 
 .why__header {
@@ -540,11 +606,11 @@ body {
 }
 
 .why__header .section-label {
-  color: var(--color-teal-light);
+  color: var(--dark-text-accent);
 }
 
 .why__header .section-title {
-  color: var(--color-off-white);
+  color: var(--dark-text-primary);
 }
 
 .why__grid {
@@ -564,7 +630,7 @@ body {
   font-size: 5rem;
   font-weight: 800;
   line-height: 1;
-  color: var(--color-teal);
+  color: var(--teal-500); /* teal reads on dark canvas; 700 would vanish */
   margin-bottom: var(--space-24);
   letter-spacing: -0.04em;
 }
@@ -579,7 +645,7 @@ body {
 .why-item__desc {
   font-family: var(--font-body);
   font-size: var(--text-base);
-  color: rgba(245, 245, 242, 0.6);
+  color: var(--dark-text-secondary);
   line-height: 1.75;
 }
 
@@ -606,7 +672,7 @@ body {
 .collaborate__subtext {
   margin-top: var(--space-16);
   font-size: var(--text-lg);
-  color: var(--color-text-muted);
+  color: var(--color-text-secondary);
   line-height: 1.7;
 }
 
@@ -632,7 +698,7 @@ body {
 }
 
 .collab-open:hover {
-  background-color: var(--color-teal-light);
+  background-color: var(--color-teal-hover);
 }
 
 /* Form reveal — CSS grid-row collapse trick */
@@ -729,13 +795,16 @@ body {
   height: 48px;
   width: 100%;
   outline: none;
-  transition: border-color var(--transition-base);
+  transition:
+    border-color var(--transition-base),
+    box-shadow var(--transition-base);
   -webkit-appearance: none;
   appearance: none;
 }
 
 .form-input:focus {
-  border-color: var(--color-teal);
+  border-color: var(--color-cyan); /* color/border/focus */
+  box-shadow: 0 0 0 3px rgba(0, 203, 220, 0.35);
 }
 
 .form-input::placeholder {
@@ -748,7 +817,7 @@ body {
 }
 
 .form-select {
-  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 24 24' fill='none' stroke='%230f1010' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'/%3E%3C/svg%3E");
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 24 24' fill='none' stroke='%230D1518' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'/%3E%3C/svg%3E");
   background-repeat: no-repeat;
   background-position: right var(--space-16) center;
   padding-right: var(--space-48);
@@ -771,7 +840,7 @@ body {
 }
 
 .form-submit:hover {
-  background-color: var(--color-teal-light);
+  background-color: var(--color-teal-hover);
 }
 
 .collaborate__confirm {
@@ -802,7 +871,7 @@ body {
 
 .confirm__subtext {
   font-size: var(--text-base);
-  color: var(--color-text-muted);
+  color: var(--color-text-secondary);
   line-height: 1.6;
 }
 
@@ -826,7 +895,7 @@ body {
 .footer {
   padding-block: var(--space-64);
   background-color: var(--color-off-white);
-  border-top: 1px solid var(--color-border);
+  border-top: 1px solid var(--color-divider);
 }
 
 .footer__inner {
