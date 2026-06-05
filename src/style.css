@@ -685,8 +685,14 @@ body {
     height: calc(100% - 64px);
   }
 
+  /* Slider panels: taller ratio + slimmer padding so square-ish
+     product photos render larger without cropping */
+  .product-row__media:has(.slider) {
+    aspect-ratio: 4 / 3;
+  }
+
   .slider__slide {
-    padding: 24px 20px;
+    padding: 12px 14px 28px; /* extra bottom space keeps dots off the photo */
   }
 
   .slider__arrow {
