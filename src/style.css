@@ -470,6 +470,117 @@ body {
   display: block;
 }
 
+/* ── Photo slider inside the media panel ── */
+.slider {
+  position: absolute;
+  inset: 0;
+}
+
+.slider__track {
+  display: flex;
+  height: 100%;
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
+  scroll-behavior: smooth;
+  scrollbar-width: none;        /* Firefox */
+  -webkit-overflow-scrolling: touch;
+}
+
+.slider__track::-webkit-scrollbar {
+  display: none;                /* WebKit */
+}
+
+/* Each slide fills the panel; white card bg shows through transparent PNGs */
+.slider__slide {
+  flex: 0 0 100%;
+  scroll-snap-align: start;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #ffffff;          /* color/bg/surface */
+  padding: 40px 32px;
+}
+
+.slider__slide img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+
+.slider__arrow {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(244, 247, 248, 0.92); /* canvas, near-opaque over photos */
+  border: 1px solid var(--color-border);
+  color: var(--color-teal);
+  cursor: pointer;
+  opacity: 0;
+  transition:
+    opacity var(--transition-base),
+    background-color var(--transition-base);
+  z-index: 2;
+}
+
+.product-row__media:hover .slider__arrow,
+.slider__arrow:focus-visible {
+  opacity: 1;
+}
+
+.slider__arrow:hover {
+  background: var(--teal-50);   /* color/bg/brand-soft */
+}
+
+.slider__arrow:focus-visible {
+  outline: none;
+  box-shadow: 0 0 0 3px rgba(0, 203, 220, 0.35), 0 0 0 1.5px var(--color-cyan);
+}
+
+.slider__arrow--prev { left: 12px; }
+.slider__arrow--next { right: 12px; }
+
+.slider__dots {
+  position: absolute;
+  bottom: 14px;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  gap: 8px;
+  z-index: 2;
+}
+
+.slider__dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  padding: 0;
+  background: var(--slate-200);
+  cursor: pointer;
+  transition:
+    background-color var(--transition-base),
+    transform var(--transition-base);
+}
+
+.slider__dot:hover {
+  background: var(--slate-300);
+}
+
+.slider__dot.is-active {
+  background: var(--color-teal);
+  transform: scale(1.25);
+}
+
+/* Touch devices have no hover — keep arrows visible */
+@media (hover: none) {
+  .slider__arrow { opacity: 1; }
+}
+
 /* Text side */
 .product-row__body {
   flex: 1;
@@ -572,6 +683,15 @@ body {
     right: 24px;
     width: calc(100% - 48px);
     height: calc(100% - 64px);
+  }
+
+  .slider__slide {
+    padding: 24px 20px;
+  }
+
+  .slider__arrow {
+    width: 36px;
+    height: 36px;
   }
 
   .product-row__body {
