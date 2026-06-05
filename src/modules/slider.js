@@ -1,7 +1,11 @@
 /* ============================================================
    PRODUCT PHOTO SLIDER
-   Scroll-snap track + arrows + dots. One instance per [data-slider].
+   Scroll-snap track + arrows + dots + autoplay (2s, loops back
+   to the first slide; holding the image pauses it).
+   One instance per [data-slider].
    ============================================================ */
+
+const AUTOPLAY_MS = 2000
 
 export function initSlider() {
   document.querySelectorAll('[data-slider]').forEach(setupSlider)
@@ -61,4 +65,54 @@ function setupSlider(slider) {
   }, { passive: true })
 
   updateDots()
+
+  /* ── Autoplay: advance every 2s, wrap to start; hold to pause ── */
+  if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return
+
+  let timer = null
+  let held = false
+  let inView = false
+
+  function tick() {
+    if (held || document.hidden) return
+    goTo((index() + 1) % count)
+  }
+
+  function startAutoplay() {
+    if (timer) return
+    timer = setInterval(tick, AUTOPLAY_MS)
+  }
+
+  function stopAutoplay() {
+    clearInterval(timer)
+    timer = null
+  }
+
+  function restartAutoplay() {
+    if (!inView) return
+    stopAutoplay()
+    startAutoplay()
+  }
+
+  /* Manual nav (arrows/dots) resets the 2s countdown */
+  prev.addEventListener('click', restartAutoplay)
+  next.addEventListener('click', restartAutoplay)
+  dotsHost.addEventListener('click', restartAutoplay)
+
+  /* Press-and-hold (touch or mouse) pauses; release resumes */
+  slider.addEventListener('pointerdown', () => { held = true })
+  ;['pointerup', 'pointercancel', 'pointerleave'].forEach(ev =>
+    slider.addEventListener(ev, () => {
+      if (!held) return
+      held = false
+      restartAutoplay() /* full 2s before the next advance */
+    })
+  )
+
+  /* Only run while the slider is on screen */
+  new IntersectionObserver(([entry]) => {
+    inView = entry.isIntersecting
+    if (inView) startAutoplay()
+    else stopAutoplay()
+  }, { threshold: 0.3 }).observe(slider)
 }
