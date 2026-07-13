@@ -21,11 +21,12 @@
 
 <body>
 
-  <!-- ═══════════ NAV ═══════════ -->
-  <header class="nav" id="nav" role="banner">
+  <!-- ═══════════ NAV — white logo over the dark hero, teal once scrolled ═══════════ -->
+  <header class="nav nav--on-dark" id="nav" role="banner">
     <div class="container nav__inner">
       <a href="/" class="nav__logo" aria-label="MOOX Home">
-        <img src="/moox-logo.svg" alt="MOOX" />
+        <img src="/moox-logo-white.png" alt="MOOX" class="nav__logo-img nav__logo-img--light" />
+        <img src="/moox-logo.svg" alt="MOOX" class="nav__logo-img nav__logo-img--dark" />
       </a>
       <span class="nav__badge">Flagship</span>
     </div>
@@ -40,7 +41,7 @@
       <div class="ax-hero__sticky">
         <canvas class="ax-hero__canvas" data-ax-canvas
                 role="img" aria-label="Animasi MOO Axina"></canvas>
-        <div class="ax-hero__scrim" aria-hidden="true"></div>
+        <div class="ax-hero__scrim" data-ax-scrim aria-hidden="true"></div>
 
         <div class="container ax-hero__content" data-ax-fade>
           <p class="ax-hero__eyebrow">Flagship · Segera Hadir</p>
@@ -84,47 +85,63 @@
         <div class="ax-feature-grid reveal-group">
 
           <article class="ax-feature reveal-child">
-            <div class="ax-feature__icon" aria-hidden="true">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="6" width="20" height="12" rx="2"/><path d="M2 10h20"/><path d="M7 14h4"/></svg>
+            <div class="ax-feature__media">
+              <img src="/images/axina/waveguide.jpg"
+                   alt="Pandangan POV berkendara dengan navigasi AR hijau menampilkan peta, arah, dan nama jalan"
+                   loading="lazy" width="1400" height="640" />
             </div>
-            <h3 class="ax-feature__title">Layar AR waveguide</h3>
-            <p class="ax-feature__desc">
-              Proyeksi jernih yang menyatu dengan pandangan alami, terbaca
-              baik di dalam ruangan maupun di bawah sinar matahari.
-            </p>
+            <div class="ax-feature__body">
+              <h3 class="ax-feature__title">Layar AR waveguide</h3>
+              <p class="ax-feature__desc">
+                Proyeksi jernih yang menyatu dengan pandangan alami —
+                terbaca di dalam ruangan maupun di bawah sinar matahari.
+              </p>
+            </div>
           </article>
 
           <article class="ax-feature reveal-child">
-            <div class="ax-feature__icon" aria-hidden="true">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"/><circle cx="12" cy="13" r="4"/></svg>
+            <div class="ax-feature__media">
+              <img src="/images/axina/camera-audio.jpg"
+                   alt="Close-up kacamata MOOX hitam dengan kamera dan gelombang audio"
+                   loading="lazy" width="1400" height="638" />
             </div>
-            <h3 class="ax-feature__title">Kamera + audio kelas kreator</h3>
-            <p class="ax-feature__desc">
-              Rekam momen dari sudut pandangmu sendiri. Dengar musik dan
-              panggilan lewat open ear audio tanpa menutup telinga.
-            </p>
+            <div class="ax-feature__body">
+              <h3 class="ax-feature__title">Kamera + audio kelas kreator</h3>
+              <p class="ax-feature__desc">
+                Rekam dari sudut pandangmu sendiri. Musik dan panggilan lewat
+                open ear audio, tanpa menutup telinga.
+              </p>
+            </div>
           </article>
 
           <article class="ax-feature reveal-child">
-            <div class="ax-feature__icon" aria-hidden="true">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M12 1a3 3 0 0 0-3 3v8a3 3 0 0 0 6 0V4a3 3 0 0 0-3-3z"/><path d="M19 10v2a7 7 0 0 1-14 0v-2"/><line x1="12" y1="19" x2="12" y2="23"/><line x1="8" y1="23" x2="16" y2="23"/></svg>
+            <div class="ax-feature__media">
+              <img src="/images/axina/hey-moo.jpg"
+                   alt="Overlay AR mengenali sebuah restoran di jalan lengkap dengan menu terlaris dan rating bintang"
+                   loading="lazy" width="1400" height="639" />
             </div>
-            <h3 class="ax-feature__title">"Hey Moo"</h3>
-            <p class="ax-feature__desc">
-              Asisten suara siap membantu tanpa menyentuh apa pun. Tanya,
-              terjemahkan, navigasi, semuanya cukup dengan suara.
-            </p>
+            <div class="ax-feature__body">
+              <h3 class="ax-feature__title">"Hey Moo"</h3>
+              <p class="ax-feature__desc">
+                Asisten suara tanpa sentuh. Tanya, terjemahkan, navigasi —
+                semua cukup dengan suara.
+              </p>
+            </div>
           </article>
 
           <article class="ax-feature reveal-child">
-            <div class="ax-feature__icon" aria-hidden="true">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><rect x="1" y="6" width="18" height="12" rx="2"/><line x1="23" y1="10" x2="23" y2="14"/><rect x="4" y="9" width="9" height="6" rx="1" fill="currentColor" stroke="none"/></svg>
+            <div class="ax-feature__media">
+              <img src="/images/axina/all-day.jpg"
+                   alt="Empat orang berbeda profesi mengenakan kacamata MOOX Axina"
+                   loading="lazy" width="1400" height="639" />
             </div>
-            <h3 class="ax-feature__title">Desain sepanjang hari</h3>
-            <p class="ax-feature__desc">
-              Bingkai ringan dengan baterai yang menemani dari pagi hingga
-              malam, dirancang untuk dipakai nyaman berjam-jam.
-            </p>
+            <div class="ax-feature__body">
+              <h3 class="ax-feature__title">Desain sepanjang hari</h3>
+              <p class="ax-feature__desc">
+                Bingkai ringan dengan baterai yang menemani dari pagi
+                hingga malam.
+              </p>
+            </div>
           </article>
 
         </div>
@@ -134,12 +151,31 @@
     <!-- ═══════════ FOR WHOM ═══════════ -->
     <section class="ax-audience" aria-label="Untuk siapa Axina dibuat">
       <div class="container">
-        <p class="section-label reveal">Untuk siapa Axina dibuat</p>
-        <p class="ax-audience__text reveal">
-          Buat kamu yang ingin tetap terhubung tanpa terganggu. Kreator yang
-          merekam hidup dari sudut pandang pertama. Profesional yang butuh
-          informasi instan tanpa membuka ponsel. Dan siapa pun yang percaya
-          masa depan kacamata bukan cuma soal penglihatan,
+        <header class="ax-audience__header reveal">
+          <p class="section-label">Untuk siapa</p>
+          <h2 class="section-title">Dibuat untuk cara hidupmu.</h2>
+        </header>
+
+        <div class="ax-persona-grid reveal-group">
+          <div class="ax-persona reveal-child">
+            <span class="ax-persona__num">01</span>
+            <h3 class="ax-persona__title">Kreator</h3>
+            <p class="ax-persona__desc">Merekam hidup dari sudut pandang pertama.</p>
+          </div>
+          <div class="ax-persona reveal-child">
+            <span class="ax-persona__num">02</span>
+            <h3 class="ax-persona__title">Profesional</h3>
+            <p class="ax-persona__desc">Informasi instan tanpa perlu membuka ponsel.</p>
+          </div>
+          <div class="ax-persona reveal-child">
+            <span class="ax-persona__num">03</span>
+            <h3 class="ax-persona__title">Selalu hadir</h3>
+            <p class="ax-persona__desc">Tetap terhubung tanpa terganggu layar.</p>
+          </div>
+        </div>
+
+        <p class="ax-audience__closing reveal">
+          Masa depan kacamata bukan cuma soal penglihatan,
           <em>tapi soal kecerdasan.</em>
         </p>
       </div>

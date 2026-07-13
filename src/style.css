@@ -1088,6 +1088,22 @@ body {
    Clean, dark, cinematic. Reuses design tokens only.
    ============================================================ */
 
+/* ── Nav: white logo over the dark hero, teal once the bar appears ── */
+.nav--on-dark .nav__logo-img--light { display: block; }
+.nav--on-dark .nav__logo-img--dark  { display: none; }
+.nav--on-dark.nav--scrolled .nav__logo-img--light { display: none; }
+.nav--on-dark.nav--scrolled .nav__logo-img--dark  { display: block; }
+
+.nav--on-dark .nav__badge {
+  color: #ffffff;
+  border-color: rgba(255, 255, 255, 0.55);
+}
+
+.nav--on-dark.nav--scrolled .nav__badge {
+  color: var(--color-teal);
+  border-color: var(--color-teal);
+}
+
 /* ── Hero: tall scroll region, sticky-pinned scrubbed canvas ── */
 .ax-hero {
   position: relative;
@@ -1251,35 +1267,41 @@ body {
   gap: var(--space-24);
 }
 
+/* Image-led card: cinematic visual on top, concise copy below */
 .ax-feature {
   background-color: var(--color-surface);
   border: 1px solid var(--color-border);
   border-radius: var(--radius-md);
-  padding: var(--space-48);
+  overflow: hidden;
   box-shadow: var(--shadow-card);
   transition: box-shadow var(--transition-base), transform var(--transition-base);
 }
 
 .ax-feature:hover {
   box-shadow: var(--shadow-card-hover);
-  transform: translateY(-2px);
+  transform: translateY(-3px);
 }
 
-.ax-feature__icon {
-  width: 48px;
-  height: 48px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  border-radius: var(--radius-md);
-  background: var(--color-teal-subtle);
-  color: var(--color-teal);
-  margin-bottom: var(--space-24);
+.ax-feature__media {
+  aspect-ratio: 22 / 10;
+  overflow: hidden;
+  background: var(--slate-100);
 }
 
-.ax-feature__icon svg {
-  width: 26px;
-  height: 26px;
+.ax-feature__media img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  transition: transform var(--transition-slow);
+}
+
+.ax-feature:hover .ax-feature__media img {
+  transform: scale(1.04);
+}
+
+.ax-feature__body {
+  padding: var(--space-32) var(--space-32) var(--space-48);
 }
 
 .ax-feature__title {
@@ -1288,30 +1310,82 @@ body {
   font-weight: 700;
   letter-spacing: -0.01em;
   color: var(--color-black);
-  margin-bottom: var(--space-12);
+  margin-bottom: var(--space-8);
 }
 
 .ax-feature__desc {
   font-size: var(--text-base);
   color: var(--color-text-secondary);
-  line-height: 1.75;
+  line-height: 1.7;
+  max-width: 46ch;
 }
 
 .ax-feature-grid .reveal-child:nth-child(4) { transition-delay: 240ms; }
 
-/* ── Audience (dark) ── */
+/* ── Audience (dark) — scannable personas + bold closing ── */
 .ax-audience {
   padding-block: var(--section-padding);
   background-color: var(--dark-canvas);
   color: var(--dark-text-primary);
 }
 
-.ax-audience .section-label {
+.ax-audience__header {
+  margin-bottom: var(--space-64);
+}
+
+.ax-audience__header .section-label {
+  color: var(--dark-text-accent);
+}
+
+.ax-audience__header .section-title {
+  color: var(--dark-text-primary);
+}
+
+.ax-persona-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: var(--space-24);
+  margin-bottom: var(--space-64);
+}
+
+.ax-persona {
+  padding: var(--space-32);
+  border: 1px solid var(--slate-800);
+  border-radius: var(--radius-md);
+  background: rgba(255, 255, 255, 0.02);
+  transition: border-color var(--transition-base), background-color var(--transition-base);
+}
+
+.ax-persona:hover {
+  border-color: var(--teal-600);
+  background: rgba(0, 203, 220, 0.04);
+}
+
+.ax-persona__num {
+  display: block;
+  font-family: var(--font-heading);
+  font-size: var(--text-sm);
+  font-weight: 700;
+  letter-spacing: 0.1em;
   color: var(--dark-text-accent);
   margin-bottom: var(--space-24);
 }
 
-.ax-audience__text {
+.ax-persona__title {
+  font-family: var(--font-heading);
+  font-size: var(--text-2xl);
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  margin-bottom: var(--space-8);
+}
+
+.ax-persona__desc {
+  font-size: var(--text-base);
+  color: var(--dark-text-secondary);
+  line-height: 1.6;
+}
+
+.ax-audience__closing {
   font-family: var(--font-heading);
   font-size: clamp(1.375rem, 3vw, 2.125rem);
   font-weight: 700;
@@ -1320,7 +1394,7 @@ body {
   max-width: 900px;
 }
 
-.ax-audience__text em {
+.ax-audience__closing em {
   color: var(--dark-text-brand);
   font-style: normal;
 }
@@ -1410,8 +1484,12 @@ body {
     grid-template-columns: 1fr;
   }
 
-  .ax-feature {
-    padding: var(--space-32);
+  .ax-feature__body {
+    padding: var(--space-24) var(--space-24) var(--space-32);
+  }
+
+  .ax-persona-grid {
+    grid-template-columns: 1fr;
   }
 
   .ax-spec {

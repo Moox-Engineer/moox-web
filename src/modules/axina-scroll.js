@@ -17,6 +17,7 @@ export function initAxinaScroll() {
   const ctx = canvas.getContext('2d')
   const fade = hero.querySelector('[data-ax-fade]')
   const fadeHint = hero.querySelector('[data-ax-fade-hint]')
+  const scrim = hero.querySelector('[data-ax-scrim]')
   const frames = []
   let loaded = 0
   let current = -1
@@ -95,6 +96,9 @@ export function initAxinaScroll() {
       fade.style.transform = `translate3d(0, ${-32 * eased}px, 0)`
       fade.style.pointerEvents = t >= 1 ? 'none' : ''
     }
+    /* Fade the scrim out with the copy so the GIF's own end-text
+       stays bright and readable at the bottom of the scroll. */
+    if (scrim) scrim.style.opacity = opacity
     if (fadeHint) fadeHint.style.opacity = Math.max(0, 1 - t * 3)
   }
 
