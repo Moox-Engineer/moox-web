@@ -15,11 +15,18 @@ export function initAxinaScroll() {
   if (!hero || !canvas) return
 
   const ctx = canvas.getContext('2d')
+  const fade = hero.querySelector('[data-ax-fade]')
+  const fadeHint = hero.querySelector('[data-ax-fade-hint]')
   const frames = []
   let loaded = 0
   let current = -1
+  let lastFade = -1
   let natW = 800
   let natH = 450
+
+  /* Overlay copy is fully gone by this scroll fraction — before the GIF
+     reaches its own baked-in text near the end. */
+  const FADE_END = 0.34
 
   const reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches
 
@@ -75,14 +82,32 @@ export function initAxinaScroll() {
     return Math.min(1, Math.max(0, -rect.top / scrollable))
   }
 
+  /* Fade + drift the overlay copy out as the frames advance */
+  function applyFade(p) {
+    const t = Math.min(1, p / FADE_END)          // 0 → 1 across the fade zone
+    const rounded = Math.round(t * 100) / 100
+    if (rounded === lastFade) return
+    lastFade = rounded
+    const eased = t * t                           // ease-in: lingers, then leaves
+    const opacity = 1 - eased
+    if (fade) {
+      fade.style.opacity = opacity
+      fade.style.transform = `translate3d(0, ${-32 * eased}px, 0)`
+      fade.style.pointerEvents = t >= 1 ? 'none' : ''
+    }
+    if (fadeHint) fadeHint.style.opacity = Math.max(0, 1 - t * 3)
+  }
+
   let ticking = false
   function onScroll() {
     if (ticking) return
     ticking = true
     requestAnimationFrame(() => {
       ticking = false
-      const index = Math.round(progress() * (FRAME_COUNT - 1))
+      const p = progress()
+      const index = Math.round(p * (FRAME_COUNT - 1))
       if (index !== current) draw(index)
+      applyFade(p)
     })
   }
 

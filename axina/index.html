@@ -34,13 +34,15 @@
   <main>
 
     <!-- ═══════════ HERO — scroll-scrubbed frame sequence ═══════════ -->
+    <!-- Overlay copy fades + drifts out as you scroll, clearing the frame
+         before the GIF reveals its own baked-in text near the end. -->
     <section class="ax-hero" id="ax-hero" aria-label="MOO Axina">
       <div class="ax-hero__sticky">
         <canvas class="ax-hero__canvas" data-ax-canvas
                 role="img" aria-label="Animasi MOO Axina"></canvas>
         <div class="ax-hero__scrim" aria-hidden="true"></div>
 
-        <div class="container ax-hero__content">
+        <div class="container ax-hero__content" data-ax-fade>
           <p class="ax-hero__eyebrow">Flagship · Segera Hadir</p>
           <h1 class="ax-hero__title">MOO Axina</h1>
           <p class="ax-hero__lede">Where vision meets intelligence.</p>
@@ -51,7 +53,7 @@
           </p>
         </div>
 
-        <div class="ax-hero__hint" aria-hidden="true">
+        <div class="ax-hero__hint" data-ax-fade-hint aria-hidden="true">
           <span>Scroll</span>
           <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
         </div>
