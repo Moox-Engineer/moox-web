@@ -44,19 +44,7 @@ export function initAxinaScroll() {
     frames[i] = img
   }
 
-  /* Canvas filter (blur) support varies on older iOS — probe once */
-  const canBlur = (() => {
-    try { ctx.filter = 'blur(2px)'; const ok = ctx.filter !== 'none'; ctx.filter = 'none'; return ok }
-    catch (_) { return false }
-  })()
-
-  function drawCentered(img, w, h) {
-    ctx.drawImage(img, (canvas.width - w) / 2, (canvas.height - h) / 2, w, h)
-  }
-
-  /* Landscape viewports cover-fit (minimal crop). Portrait viewports show the
-     whole landscape frame (contain — so the GIF's baked-in text is never cut)
-     over an ambient backdrop of the same frame, so there are no letterbox bars. */
+  /* ── Cover-fit draw of one frame onto the DPR-scaled canvas ── */
   function draw(index) {
     const img = frames[index]
     if (!img || !img.complete || img.naturalWidth === 0) return
@@ -64,22 +52,13 @@ export function initAxinaScroll() {
 
     const cw = canvas.width
     const ch = canvas.height
+    const scale = Math.max(cw / natW, ch / natH)
+    const dw = natW * scale
+    const dh = natH * scale
+    const dx = (cw - dw) / 2
+    const dy = (ch - dh) / 2
     ctx.clearRect(0, 0, cw, ch)
-
-    const cover = Math.max(cw / natW, ch / natH)
-    const portrait = cw / ch < 0.9
-
-    if (portrait) {
-      if (canBlur) ctx.filter = 'blur(16px)'
-      drawCentered(img, natW * cover, natH * cover)
-      if (canBlur) ctx.filter = 'none'
-      ctx.fillStyle = canBlur ? 'rgba(13, 21, 24, 0.34)' : 'rgba(13, 21, 24, 0.55)'
-      ctx.fillRect(0, 0, cw, ch)
-      const contain = Math.min(cw / natW, ch / natH)
-      drawCentered(img, natW * contain, natH * contain)
-    } else {
-      drawCentered(img, natW * cover, natH * cover)
-    }
+    ctx.drawImage(img, dx, dy, dw, dh)
   }
 
   function resize() {
