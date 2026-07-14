@@ -1,0 +1,446 @@
+<!doctype html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>MOOX — See the world. Share it.</title>
+
+  <!-- Kept out of search results: this is a staging/preview page. -->
+  <meta name="robots" content="noindex, nofollow, noarchive, nosnippet, noimageindex" />
+  <meta name="googlebot" content="noindex, nofollow" />
+
+  <link rel="icon" href="/favicon.ico" />
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Chakra+Petch:wght@400;500;600;700&family=Hanken+Grotesk:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap"
+    rel="stylesheet"
+  />
+
+  <script type="module" src="/src/newhome.js"></script>
+</head>
+
+<body>
+
+  <!-- ═══════════ NAV ═══════════ -->
+  <header class="nh-nav">
+    <div class="nh-nav__inner">
+      <a href="#top" class="nh-nav__logo" aria-label="MOOX">
+        <img src="/moox-logo-white.png" alt="MOOX" />
+      </a>
+      <nav class="nh-nav__links" aria-label="Utama">
+        <a href="#axela">Produk</a>
+        <a href="#pov">POV</a>
+        <a href="#app">Aplikasi</a>
+        <a href="#galeri">Komunitas</a>
+      </nav>
+      <a href="#waitlist" class="moox-btn moox-btn--primary moox-btn--sm">Join Waitlist</a>
+    </div>
+  </header>
+
+  <main>
+
+    <!-- ═══════════ HERO ═══════════ -->
+    <section class="nh-hero" id="top" aria-label="MOOX">
+      <video
+        class="nh-hero__video"
+        src="/newhome/hero.mp4"
+        autoplay
+        loop
+        muted
+        playsinline
+        preload="auto"
+        aria-hidden="true"
+      ></video>
+      <div class="nh-hero__scrim"></div>
+      <div class="nh-hero__glow"></div>
+
+      <div class="nh-hero__body">
+        <div class="nh-hero__kicker">
+          <span class="moox-badge moox-badge--info">Hadir Oktober 2026</span>
+          <span class="nh-hero__meta">Smart glasses · Made in Indonesia</span>
+        </div>
+        <h1 class="nh-hero__title">See the world.<br /><em>Share it.</em></h1>
+        <p class="nh-hero__lede">
+          Kacamata pintar yang mengabadikan momen persis dari cara matamu melihat dunia — tanpa
+          harus berhenti hidup di dalamnya.
+        </p>
+        <div class="nh-hero__actions">
+          <a href="#waitlist" class="moox-btn moox-btn--primary moox-btn--lg">Join Waitlist</a>
+          <button type="button" class="moox-btn moox-btn--alt moox-btn--lg" id="nh-play-film">
+            <span class="nh-play" aria-hidden="true">▶</span>
+            Tonton film produk
+          </button>
+        </div>
+      </div>
+
+      <p class="nh-hero__rec">
+        <span class="nh-dot" aria-hidden="true"></span>
+        REC · POV 00:47
+      </p>
+    </section>
+
+    <!-- ═══════════ MARQUEE ═══════════ -->
+    <div class="nh-marquee" aria-hidden="true">
+      <div class="nh-marquee__track">
+        <span>Kamera POV</span><b>✦</b>
+        <span>Open-ear audio</span><b>✦</b>
+        <span>Hands-free capture</span><b>✦</b>
+        <span>Lahir di Indonesia</span><b>✦</b>
+        <span>eyesonmoox.com</span><b>✦</b>
+        <span>Kamera POV</span><b>✦</b>
+        <span>Open-ear audio</span><b>✦</b>
+        <span>Hands-free capture</span><b>✦</b>
+        <span>Lahir di Indonesia</span><b>✦</b>
+        <span>eyesonmoox.com</span><b>✦</b>
+      </div>
+    </div>
+
+    <!-- ═══════════ AXELA ═══════════ -->
+    <section class="nh-section nh-section--light" id="axela">
+      <div class="nh-axela">
+        <div class="nh-axela__copy nh-reveal">
+          <div class="nh-axela__label">
+            <span class="nh-axela__name">MOO Axela</span>
+            <span class="nh-pill">Unggulan</span>
+          </div>
+          <h2 class="nh-axela__title">Abadikan perspektifmu.</h2>
+          <p class="nh-axela__lede">
+            Setiap momen yang kamu lihat, bisa langsung terabadikan. Bukan dari sudut kamera yang
+            diangkat tinggi — tapi persis dari cara matamu melihat dunia.
+          </p>
+          <div class="nh-specs">
+            <span>Kamera POV</span>
+            <span>Open-ear speaker</span>
+            <span>Kontrol sentuh</span>
+            <span>Frame klasik</span>
+          </div>
+          <div class="nh-axela__cta">
+            <a href="#waitlist" class="moox-btn moox-btn--lg moox-btn--teal">Amankan unitmu</a>
+          </div>
+        </div>
+
+        <!-- Shot switcher: stage + thumbnails, driven by newhome.js -->
+        <div class="nh-shots" id="nh-shots">
+          <div class="nh-shots__stage">
+            <img
+              src="/images/axela-2.jpg"
+              alt="MOO Axela — tampak 3/4"
+              class="is-active"
+              data-shot="0"
+            />
+            <img src="/images/axela-4.jpg" alt="MOO Axela — tampak depan" data-shot="1" />
+            <img src="/images/axela-5.jpg" alt="MOO Axela — tampak belakang" data-shot="2" />
+            <span class="nh-shots__label" id="nh-shot-label">Tampak 3/4</span>
+          </div>
+          <div class="nh-shots__thumbs" role="tablist" aria-label="Sudut pandang MOO Axela">
+            <button
+              type="button"
+              class="nh-thumb"
+              role="tab"
+              aria-selected="true"
+              data-shot="0"
+              data-label="Tampak 3/4"
+            >
+              <img src="/images/axela-2.jpg" alt="Tampak 3/4" />
+            </button>
+            <button
+              type="button"
+              class="nh-thumb"
+              role="tab"
+              aria-selected="false"
+              data-shot="1"
+              data-label="Tampak depan"
+            >
+              <img src="/images/axela-4.jpg" alt="Tampak depan" />
+            </button>
+            <button
+              type="button"
+              class="nh-thumb"
+              role="tab"
+              aria-selected="false"
+              data-shot="2"
+              data-label="Tampak belakang"
+            >
+              <img src="/images/axela-5.jpg" alt="Tampak belakang" />
+            </button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ═══════════ POV ═══════════ -->
+    <section class="nh-section nh-section--dark" id="pov">
+      <div class="nh-pov__glow"></div>
+      <div class="nh-pov__inner">
+        <div class="nh-pov__head nh-reveal">
+          <p class="nh-eyebrow nh-eyebrow--light">Direkam lewat MOOX</p>
+          <h2 class="nh-h2">Dunia, dari sudut pandangmu.</h2>
+          <p class="nh-lede">
+            Tanpa mengangkat tangan. Tanpa menunduk ke layar. Semua footage di bawah ini nantinya
+            hasil rekaman asli MOO Axela.
+          </p>
+        </div>
+        <div class="nh-pov__grid">
+          <div class="nh-pov__cell">
+            <video src="/newhome/pov-1.mp4" autoplay loop muted playsinline preload="auto"></video>
+            <div class="nh-pov__hud moox-reticle"></div>
+            <span class="nh-pov__tag nh-pov__tag--rec">
+              <span class="nh-dot" aria-hidden="true"></span>REC 00:12
+            </span>
+          </div>
+          <div class="nh-pov__cell nh-pov__cell--offset">
+            <video src="/newhome/pov-2.mp4" autoplay loop muted playsinline preload="auto"></video>
+            <div class="nh-pov__hud moox-reticle"></div>
+            <span class="nh-pov__tag">POV · 1080P</span>
+          </div>
+          <div class="nh-pov__cell">
+            <video src="/newhome/pov-3.mp4" autoplay loop muted playsinline preload="auto"></video>
+            <div class="nh-pov__hud moox-reticle"></div>
+            <span class="nh-pov__tag">HANDS-FREE</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ═══════════ LINEUP ═══════════ -->
+    <section class="nh-section nh-section--light" id="lineup">
+      <div class="nh-wrap">
+        <div class="nh-lineup__head">
+          <p class="nh-eyebrow nh-eyebrow--dark">Lini Produk</p>
+          <h2 class="nh-h2">Tiga cara untuk melihat lebih jauh.</h2>
+        </div>
+        <div class="nh-lineup__grid">
+          <article class="nh-card">
+            <div class="nh-card__media">
+              <img src="/images/akasa-wave.jpg" alt="MOO Axaka" loading="lazy" />
+            </div>
+            <div class="nh-card__body">
+              <div class="nh-card__label"><span class="nh-card__num">01 · MOO Axaka</span></div>
+              <h3>Dengar tanpa batas.</h3>
+              <p>
+                Musik, podcast, dan telepon lewat speaker tersembunyi di frame. Telingamu tetap
+                terbuka — kamu tetap hadir.
+              </p>
+            </div>
+          </article>
+
+          <article class="nh-card nh-card--featured">
+            <div class="nh-card__media">
+              <img src="/images/axela-4.jpg" alt="MOO Axela" loading="lazy" />
+            </div>
+            <div class="nh-card__body">
+              <div class="nh-card__label">
+                <span class="nh-card__num">02 · MOO Axela</span>
+                <span class="nh-card__tag">Unggulan</span>
+              </div>
+              <h3>Abadikan perspektifmu.</h3>
+              <p>
+                Kamera POV di frame kacamatamu. Foto dan video langsung dari sudut pandang matamu,
+                hands-free.
+              </p>
+            </div>
+          </article>
+
+          <article class="nh-card nh-card--dark">
+            <div class="nh-card__media nh-card__media--classified">
+              <img src="/newhome/moox-mark-white.png" alt="" loading="lazy" />
+              <span class="nh-card__stamp">CLASSIFIED · 2027</span>
+            </div>
+            <div class="nh-card__body">
+              <div class="nh-card__label">
+                <span class="nh-card__num">03 · MOO Axina</span>
+                <span class="moox-badge moox-badge--info">Coming soon</span>
+              </div>
+              <h3>Realitas yang diperluas.</h3>
+              <p>
+                Informasi yang kamu butuhkan, tepat di depan matamu. Tanpa menunduk. Tanpa
+                kehilangan momen.
+              </p>
+            </div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- ═══════════ APP ═══════════ -->
+    <section class="nh-app" id="app">
+      <div class="nh-app__inner">
+        <div class="nh-app__copy nh-reveal">
+          <p class="nh-eyebrow nh-eyebrow--light">MOOX App</p>
+          <h2 class="nh-h2">Satu aplikasi.<br />Seluruh ekosistem.</h2>
+          <p class="nh-lede">
+            MOO Axaka, Axela, dan Axina terhubung dalam satu aplikasi. Kelola rekaman, edit cepat,
+            dan bagikan langsung ke sosial mediamu.
+          </p>
+          <div class="nh-steps">
+            <div class="nh-step">
+              <span class="nh-step__num">01</span>
+              <div>
+                <p class="nh-step__title">Galeri otomatis</p>
+                <p class="nh-step__text">Semua capture tersinkron begitu kacamata terhubung.</p>
+              </div>
+            </div>
+            <div class="nh-step">
+              <span class="nh-step__num">02</span>
+              <div>
+                <p class="nh-step__title">Edit &amp; bagikan instan</p>
+                <p class="nh-step__text">Potong, stabilkan, langsung unggah ke IG &amp; TikTok.</p>
+              </div>
+            </div>
+            <div class="nh-step">
+              <span class="nh-step__num">03</span>
+              <div>
+                <p class="nh-step__title">Kontrol perangkat</p>
+                <p class="nh-step__text">
+                  Baterai, penyimpanan, dan pengaturan capture dalam satu layar.
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="nh-phone-wrap">
+          <div class="nh-phone nh-reveal">
+            <div class="nh-phone__notch"></div>
+            <div class="nh-phone__screen">
+              <img src="/newhome/app-ui.png" alt="Aplikasi MOOX" loading="lazy" />
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ═══════════ GALERI ═══════════ -->
+    <section class="nh-section nh-section--light" id="galeri">
+      <div class="nh-wrap">
+        <div class="nh-galeri__head">
+          <div class="nh-galeri__intro">
+            <p class="nh-eyebrow nh-eyebrow--dark">Komunitas</p>
+            <h2 class="nh-h2">Dilihat oleh <span>@eyesonmoox</span>.</h2>
+          </div>
+          <p class="nh-galeri__note">
+            Momen para kreator Indonesia, direkam langsung dari frame mereka. Tag @eyesonmoox untuk
+            tampil di sini.
+          </p>
+        </div>
+        <div class="nh-galeri__grid">
+          <div class="nh-tile nh-tile--wide">
+            <img src="/newhome/uc-anak.jpg" alt="Momen anak — POV" loading="lazy" />
+          </div>
+          <div class="nh-tile">
+            <img src="/newhome/uc-peliharaan.jpg" alt="Main dengan anjing — POV" loading="lazy" />
+          </div>
+          <div class="nh-tile nh-tile--tall">
+            <img src="/newhome/uc-olahraga.jpg" alt="Lari pagi — POV" loading="lazy" />
+          </div>
+          <div class="nh-tile">
+            <img src="/newhome/uc-memancing.jpg" alt="Memancing — POV" loading="lazy" />
+          </div>
+          <div class="nh-tile">
+            <img src="/newhome/uc-wahana.jpg" alt="Wahana — POV" loading="lazy" />
+          </div>
+          <div class="nh-tile nh-tile--cta">
+            <img src="/newhome/moox-mark-white.png" alt="" loading="lazy" />
+            <p>Ikuti perjalanannya</p>
+            <a href="https://www.instagram.com/eyesonmoox/" target="_blank" rel="noopener">
+              @eyesonmoox →
+            </a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ═══════════ WAITLIST ═══════════ -->
+    <section class="nh-waitlist" id="waitlist">
+      <div class="nh-waitlist__rings" aria-hidden="true">
+        <div class="nh-ring--spin"></div>
+        <div class="nh-ring--inner"></div>
+        <div class="nh-ring--glow"></div>
+      </div>
+      <div class="nh-waitlist__inner">
+        <span class="moox-badge moox-badge--info">Hadir Oktober 2026</span>
+        <h2 class="nh-waitlist__title">Jadilah yang pertama melihatnya.</h2>
+        <p class="nh-waitlist__lede">
+          Akses early-bird, harga peluncuran, dan undangan demo eksklusif di kotamu. Tanpa spam —
+          hanya kabar penting.
+        </p>
+
+        <!-- Netlify Forms: detected from the built static HTML at deploy time. -->
+        <form
+          class="nh-waitlist__form"
+          id="nh-waitlist-form"
+          name="waitlist"
+          method="POST"
+          data-netlify="true"
+          netlify-honeypot="bot-field"
+        >
+          <input type="hidden" name="form-name" value="waitlist" />
+          <p hidden><label>Jangan isi ini: <input name="bot-field" /></label></p>
+          <input
+            class="moox-input"
+            type="email"
+            id="nh-email"
+            name="email"
+            placeholder="Alamat email kamu"
+            aria-label="Alamat email kamu"
+            autocomplete="email"
+            required
+          />
+          <button type="submit" class="moox-btn moox-btn--primary">Daftar</button>
+        </form>
+
+        <div class="moox-panel moox-panel--pad nh-waitlist__done" id="nh-waitlist-done" hidden>
+          <span class="moox-badge moox-badge--success">Terdaftar</span>
+          <p>Sampai jumpa Oktober 2026. Eyes on MOOX. ✦</p>
+        </div>
+
+        <p class="nh-waitlist__count" id="nh-waitlist-count">12.481 orang sudah bergabung</p>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- ═══════════ FOOTER ═══════════ -->
+  <footer class="nh-footer">
+    <div class="nh-footer__inner">
+      <div class="nh-footer__top">
+        <div class="nh-footer__brand">
+          <img src="/moox-logo-white.png" alt="MOOX" />
+          <p>
+            Kacamata pintar yang lahir dari Indonesia, untuk cara hidup, selera, dan semangat
+            kreator Indonesia.
+          </p>
+        </div>
+        <div class="nh-footer__cols">
+          <div class="nh-footer__col">
+            <span>Produk</span>
+            <a href="#lineup">MOO Axaka</a>
+            <a href="#axela">MOO Axela</a>
+            <a href="#lineup">MOO Axina</a>
+          </div>
+          <div class="nh-footer__col">
+            <span>Perusahaan</span>
+            <a href="/">Tentang MOOX</a>
+            <a href="/#collaborate">Kolaborasi</a>
+            <a href="/">Karier</a>
+          </div>
+          <div class="nh-footer__col">
+            <span>Sosial</span>
+            <a href="https://www.instagram.com/eyesonmoox/" target="_blank" rel="noopener">
+              Instagram
+            </a>
+            <a href="https://www.tiktok.com/@eyesonmoox" target="_blank" rel="noopener">TikTok</a>
+            <a href="https://www.youtube.com/@eyesonmoox" target="_blank" rel="noopener">YouTube</a>
+          </div>
+        </div>
+      </div>
+      <div class="nh-footer__bottom">
+        <span>eyesonmoox.com · @eyesonmoox</span>
+        <span>Made in Indonesia · Hadir Oktober 2026</span>
+      </div>
+    </div>
+  </footer>
+
+</body>
+</html>

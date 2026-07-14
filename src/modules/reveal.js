@@ -1,5 +1,5 @@
 export function initReveal() {
-  const targets = document.querySelectorAll('.reveal, .reveal-child')
+  const targets = document.querySelectorAll('.reveal, .reveal-child, .nh-reveal')
 
   if (!targets.length) return
 

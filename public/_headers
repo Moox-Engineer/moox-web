@@ -1,0 +1,13 @@
+# Netlify response headers.
+
+# /newhome is a staging preview — keep it out of search results.
+# This backs up the noindex <meta> in newhome/index.html: the header is honored
+# even for non-HTML responses and by crawlers that skip the markup.
+#
+# Deliberately NOT robots.txt-disallowed: a disallowed URL can't be crawled, so
+# Google would never read the noindex and could still index the URL if it finds
+# a link to it. Crawlable + noindex is what actually keeps it out.
+/newhome
+  X-Robots-Tag: noindex, nofollow, noarchive
+/newhome/*
+  X-Robots-Tag: noindex, nofollow, noarchive
