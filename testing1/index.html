@@ -1,0 +1,320 @@
+<!doctype html>
+<html lang="id" data-t1-locked>
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Kacamatamoo — Kacamata kece, checkout di sini</title>
+
+  <!-- Staging / look-and-feel preview: keep it out of search results. -->
+  <meta name="robots" content="noindex, nofollow, noarchive, nosnippet, noimageindex" />
+  <meta name="googlebot" content="noindex, nofollow" />
+
+  <link rel="icon" href="/favicon.ico" />
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@500;600;700;800&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap"
+    rel="stylesheet"
+  />
+
+  <script type="module" src="/src/testing1.js"></script>
+</head>
+
+<body>
+
+  <!-- ═══════════ PASSWORD GATE ═══════════ -->
+  <div class="t1-gate" id="t1-gate" aria-hidden="false">
+    <div class="t1-gate__card">
+      <div class="t1-gate__emoji" aria-hidden="true">👓</div>
+      <h1 class="t1-gate__title">Kacamatamoo</h1>
+      <p class="t1-gate__note">Halaman preview. Masukkan password untuk melihat.</p>
+      <form class="t1-gate__form" id="t1-gate-form">
+        <input
+          class="t1-gate__input"
+          type="password"
+          id="t1-gate-input"
+          placeholder="Password"
+          aria-label="Password"
+          autocomplete="off"
+          autofocus
+        />
+        <button type="submit" class="t1-gate__btn">Masuk</button>
+      </form>
+      <p class="t1-gate__err" id="t1-gate-err" hidden>Password salah, coba lagi.</p>
+    </div>
+  </div>
+
+  <!-- ═══════════ PAGE ═══════════ -->
+  <div class="t1-app" id="t1-app" style="max-width:1440px;margin:0 auto">
+
+    <!-- announcement marquee -->
+    <div class="t1-ann" id="t1-ann" aria-hidden="true">
+      <div class="t1-ann__track" id="t1-ann-track"></div>
+    </div>
+
+    <!-- nav -->
+    <header class="t1-nav">
+      <a href="#top" class="t1-nav__logo" aria-label="Kacamatamoo">
+        <img src="/testing1/uploads/logo.png" alt="Kacamatamoo" />
+      </a>
+      <nav class="t1-nav__links" aria-label="Utama">
+        <a href="#belanja">Frames</a>
+        <a href="#belanja">LENSMOO</a>
+        <a href="#kids" class="is-kids">Kids</a>
+        <a href="#lensa">Pilih Lensa</a>
+        <a href="#lacak">Lacak Pesanan</a>
+      </nav>
+      <div class="t1-nav__actions">
+        <button class="t1-icon" type="button" aria-label="Cari">🔍</button>
+        <button class="t1-icon" type="button" aria-label="Akun">👤</button>
+        <button class="t1-icon t1-icon--cart" type="button" id="t1-cart" aria-label="Tas belanja">
+          🛒
+          <span class="t1-cart__badge" id="t1-cart-badge" hidden>0</span>
+        </button>
+      </div>
+    </header>
+
+    <main id="top">
+
+      <!-- hero -->
+      <section class="t1-hero">
+        <div class="t1-hero__copy">
+          <span class="t1-hero__wink">hai bestie! 👋</span>
+          <h2 class="t1-hero__title">
+            Kacamata kece,<br />sekarang bisa<br />
+            <span class="t1-hero__rotate" id="t1-hero-rotate">checkout di sini.</span>
+          </h2>
+          <p class="t1-hero__lede">
+            Pilih frame, pilih lensa, isi resep — semua langsung di web. Nggak perlu pindah-pindah
+            aplikasi lagi.
+          </p>
+          <div class="t1-hero__cta">
+            <a href="#belanja" class="t1-btn t1-btn--white t1-btn--pop">Belanja Sekarang</a>
+            <a href="#tryon" class="t1-btn t1-btn--ghost">📷 Coba Virtual Try-On</a>
+          </div>
+        </div>
+        <div class="t1-hero__media">
+          <div class="t1-hero__photo" style="background-image:url('/testing1/uploads/hero-model.webp')"></div>
+          <div class="t1-hero__fade"></div>
+          <span class="t1-hero__rating">4.9 ★ · 163RB review</span>
+        </div>
+      </section>
+
+      <!-- USP -->
+      <section class="t1-usp" id="t1-usp"></section>
+
+      <!-- kategori -->
+      <section class="t1-section">
+        <h3 class="t1-h2 t1-center">Mau cari apa hari ini? 👀</h3>
+        <p class="t1-sub t1-center">Pilih lorongmu, bestie — semua bisa langsung checkout.</p>
+        <div class="t1-cats" id="t1-cats"></div>
+        <a href="#belanja" class="t1-catwide">
+          <div class="t1-catwide__bg" style="background-image:url('/testing1/uploads/section-1.webp')"></div>
+          <div class="t1-catwide__shade"></div>
+          <div class="t1-catwide__copy">
+            <div class="t1-catwide__title">Eyewear for everyone 💚</div>
+            <div class="t1-catwide__sub">Dari yang minus tipis sampai gaya maksimal — ada lorongnya.</div>
+            <span class="t1-chip t1-chip--yellow">Jelajahi semua koleksi →</span>
+          </div>
+        </a>
+      </section>
+
+      <!-- find your look -->
+      <section class="t1-section">
+        <div class="t1-rowhead">
+          <div>
+            <h3 class="t1-h2">Cari gaya kamu 🔎</h3>
+            <p class="t1-sub">Pilih vibe-nya, kita tunjukin frame yang paling kamu banget.</p>
+          </div>
+          <a href="#belanja" class="t1-morelink">Semua gaya →</a>
+        </div>
+        <div class="t1-personas" id="t1-personas"></div>
+      </section>
+
+      <!-- produk -->
+      <section class="t1-section" id="belanja">
+        <div class="t1-rowhead t1-rowhead--baseline">
+          <h3 class="t1-h2">Lagi hits minggu ini 🔥</h3>
+          <a href="#belanja" class="t1-morelink">Lihat semua →</a>
+        </div>
+        <div class="t1-prods" id="t1-prods"></div>
+      </section>
+
+      <!-- pilih lensa -->
+      <section class="t1-lensa" id="lensa">
+        <div class="t1-lensa__grid">
+          <div class="t1-lensa__copy">
+            <span class="t1-chip t1-chip--yellow t1-chip--wide">CARA KERJA LENSA RESEP</span>
+            <h3 class="t1-lensa__title">Pilih lensa dulu,<br />baru isi resepmu 📝</h3>
+            <p class="t1-lensa__lede">
+              Tiap frame bisa dipasang lensa sesuai kebutuhanmu. Klik tipenya buat lihat bedanya:
+            </p>
+            <div class="t1-lenstabs" id="t1-lenstabs"></div>
+            <div class="t1-lenspanel" id="t1-lenspanel">
+              <div class="t1-lenspanel__title" id="t1-lens-title"></div>
+              <div class="t1-lenspanel__desc" id="t1-lens-desc"></div>
+              <div class="t1-lenspanel__foot">
+                <div class="t1-lenspanel__price" id="t1-lens-price"></div>
+                <button type="button" class="t1-btn t1-btn--teal t1-btn--sm">Lanjut isi resep →</button>
+              </div>
+            </div>
+          </div>
+          <div class="t1-lensa__media" id="t1-lens-media">
+            <span class="t1-lensa__badge" id="t1-lens-badge"></span>
+          </div>
+        </div>
+      </section>
+
+      <!-- lens packages -->
+      <section class="t1-section">
+        <div class="t1-rowhead">
+          <div>
+            <h3 class="t1-h2">Paket lensa buat kamu 🧠</h3>
+            <p class="t1-sub">Nggak yakin lensa apa? Pilih sesuai aktivitas harianmu.</p>
+          </div>
+          <a href="#lensa" class="t1-morelink">Cara isi resep →</a>
+        </div>
+        <div class="t1-packs" id="t1-packs"></div>
+      </section>
+
+      <!-- try-on -->
+      <section class="t1-section" id="tryon">
+        <div class="t1-tryon">
+          <div class="t1-tryon__stage">
+            <div class="t1-tryon__frame" id="t1-tryon-frame"></div>
+            <div class="t1-tryon__cam" id="t1-tryon-cam" hidden>
+              <div class="t1-tryon__camicon">📷</div>
+              <div class="t1-tryon__camnote">kamera aktif (mock) — wajahmu muncul di sini</div>
+              <div class="t1-tryon__camoval"></div>
+              <div class="t1-tryon__camtag" id="t1-tryon-camtag"></div>
+            </div>
+            <span class="t1-tryon__label">VIRTUAL TRY-ON</span>
+          </div>
+          <div class="t1-tryon__copy">
+            <h3 class="t1-tryon__title">Bingung cocok yang mana?<br />Cobain aja dulu 🤳</h3>
+            <p class="t1-tryon__lede">
+              Pilih warna frame CatEye Raya di bawah, atau nyalain kamera buat lihat langsung di
+              wajahmu.
+            </p>
+            <div class="t1-tryon__swatches" id="t1-tryon-swatches"></div>
+            <div class="t1-tryon__buttons">
+              <button type="button" class="t1-btn t1-btn--dark" id="t1-cam-toggle">📷 Nyalakan Kamera</button>
+              <button type="button" class="t1-btn t1-btn--outline" id="t1-tryon-add">+ Masukkan Tas · Rp249.000</button>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- kids -->
+      <section class="t1-kids" id="kids">
+        <span class="t1-kids__deco t1-kids__deco--sun" aria-hidden="true">🌞</span>
+        <span class="t1-kids__deco t1-kids__deco--cherry" aria-hidden="true">🍒</span>
+        <span class="t1-kids__deco t1-kids__deco--balloon" aria-hidden="true">🎈</span>
+        <div class="t1-kids__copy">
+          <h3 class="t1-kids__title">Kacamatamoo <span>Kids</span></h3>
+          <p class="t1-kids__lede">
+            Frame elastis anti-patah, warna seru, dan gratis eye exam buat si kecil di semua toko.
+          </p>
+          <button type="button" class="t1-btn t1-btn--dark">Lihat Koleksi Kids →</button>
+        </div>
+        <div class="t1-kids__photos">
+          <div class="t1-kids__photo t1-kids__photo--a" style="background-image:url('/testing1/uploads/anak-1.webp')"></div>
+          <div class="t1-kids__photo t1-kids__photo--b" style="background-image:url('/testing1/uploads/anak-2.webp')"></div>
+        </div>
+      </section>
+
+      <!-- lacak -->
+      <section class="t1-section" id="lacak">
+        <div class="t1-track">
+          <div class="t1-track__head">
+            <div>
+              <h3 class="t1-h2 t1-h2--sm">Pesananmu di mana? 📦</h3>
+              <p class="t1-sub">Masukin nomor pesanan, kita kasih tahu posisinya.</p>
+            </div>
+            <form class="t1-track__form" id="t1-track-form">
+              <input
+                class="t1-track__input"
+                type="text"
+                id="t1-track-input"
+                placeholder="cth: MOO-240719-8812"
+                aria-label="Nomor pesanan"
+              />
+              <button type="submit" class="t1-btn t1-btn--teal t1-btn--sm">Lacak!</button>
+            </form>
+          </div>
+          <div class="t1-track__steps" id="t1-track-steps" hidden></div>
+        </div>
+      </section>
+
+      <!-- testimoni -->
+      <section class="t1-section">
+        <div class="t1-rowhead">
+          <div>
+            <h3 class="t1-h2">Kata para bestie 💬</h3>
+            <p class="t1-sub">4.9 dari 163RB review — ini beberapa cerita mereka.</p>
+          </div>
+          <div class="t1-ratebox">
+            <span class="t1-ratebox__num">4.9</span>
+            <span class="t1-ratebox__stars">★★★★★</span>
+          </div>
+        </div>
+        <div class="t1-testi" id="t1-testi"></div>
+      </section>
+
+      <!-- brand banner -->
+      <section class="t1-brand">
+        <div class="t1-brand__bg" style="background-image:url('/testing1/uploads/pasted-1784543440257-0.png')"></div>
+        <div class="t1-brand__cta">
+          <button type="button" class="t1-btn t1-btn--dark t1-btn--shadow">Kenalan sama Moo →</button>
+          <a href="#belanja" class="t1-btn t1-btn--white t1-btn--shadow">Mulai Belanja</a>
+        </div>
+      </section>
+
+    </main>
+
+    <!-- footer -->
+    <footer class="t1-footer">
+      <div class="t1-footer__grid">
+        <div class="t1-footer__brand">
+          <img src="/testing1/uploads/logo.png" alt="Kacamatamoo" />
+          <p>
+            Rukan Italian Walk C No. 43, Mall of Indonesia, Jl. Boulevard Barat Kelapa Gading,
+            Jakarta Utara
+          </p>
+        </div>
+        <div class="t1-footer__col">
+          <span>BELANJA</span>
+          <a href="#belanja">Frames</a>
+          <a href="#belanja">LENSMOO Softlens</a>
+          <a href="#kids">Kids</a>
+          <a href="#lensa">Lensa Resep</a>
+        </div>
+        <div class="t1-footer__col">
+          <span>BANTUAN</span>
+          <a href="#lacak">Lacak Pesanan</a>
+          <a href="#lacak">Garansi &amp; Klaim</a>
+          <a href="#lacak">Cara Isi Resep</a>
+          <a href="#lacak">Hubungi Kami</a>
+        </div>
+        <div class="t1-footer__col">
+          <span>PERUSAHAAN</span>
+          <a href="#">Tentang Kami</a>
+          <a href="#">78 Toko Kami</a>
+          <a href="#">Karier</a>
+          <a href="#">Shopee Official Store</a>
+        </div>
+      </div>
+      <div class="t1-footer__bottom">© 2026 Kacamatamoo. Semua hak dilindungi.</div>
+    </footer>
+
+  </div>
+
+  <!-- toast -->
+  <div class="t1-toast" id="t1-toast" role="status" aria-live="polite" hidden>
+    <span aria-hidden="true">🛒</span>
+    <span id="t1-toast-msg"></span>
+  </div>
+
+</body>
+</html>

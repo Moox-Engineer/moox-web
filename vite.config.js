@@ -18,6 +18,7 @@ export default defineConfig({
         main: resolve(__dirname, 'index.html'),
         axina: resolve(__dirname, 'axina/index.html'),
         newhome: resolve(__dirname, 'newhome/index.html'),
+        testing1: resolve(__dirname, 'testing1/index.html'),
       },
     },
   },

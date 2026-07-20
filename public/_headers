@@ -11,3 +11,11 @@
   X-Robots-Tag: noindex, nofollow, noarchive
 /newhome/*
   X-Robots-Tag: noindex, nofollow, noarchive
+
+# /testing1 is a temporary look-and-feel preview (password-gated). Same deal:
+# crawlable + noindex keeps the URL out of search; it'll be removed once the
+# project wraps.
+/testing1
+  X-Robots-Tag: noindex, nofollow, noarchive
+/testing1/*
+  X-Robots-Tag: noindex, nofollow, noarchive
