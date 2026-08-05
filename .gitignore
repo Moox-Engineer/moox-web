@@ -1,3 +1,11 @@
 node_modules
 dist
 .DS_Store
+
+# Design sources — kept locally only. Anything under public/ is copied
+# verbatim into dist/ by Vite, so these would ship to production despite
+# never being referenced by the site.
+Visual/
+public/axina.gif
+public/axina/
+public/images/\[old\] *
