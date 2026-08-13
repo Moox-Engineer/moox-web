@@ -19,3 +19,17 @@
   X-Robots-Tag: noindex, nofollow, noarchive
 /testing1/*
   X-Robots-Tag: noindex, nofollow, noarchive
+
+# /internal-doc is the password-gated internal document directory. The edge
+# function (netlify/edge-functions/internal-doc-auth.js) already sets
+# X-Robots-Tag on every response it produces, and unauthenticated crawlers only
+# ever see the 401 login page. These entries are the belt-and-braces layer for
+# responses that pass through the gate.
+#
+# Same reasoning as above: no robots.txt Disallow. A disallowed URL can't be
+# crawled, so the noindex would never be read, and the bare URL could still
+# surface in search.
+/internal-doc
+  X-Robots-Tag: noindex, nofollow, noarchive
+/internal-doc/*
+  X-Robots-Tag: noindex, nofollow, noarchive

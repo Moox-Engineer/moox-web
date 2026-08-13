@@ -9,3 +9,7 @@ Visual/
 public/axina.gif
 public/axina/
 public/images/\[old\] *
+
+# Local Netlify folder
+.netlify
+deno.lock
