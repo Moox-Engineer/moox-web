@@ -63,6 +63,11 @@ Some documents depend on sibling files (`styles.css`, `assets/`, `_ds/`,
 `support.js`). Those entries carry a `dir` field so the whole folder is copied
 with relative paths intact. `dirInclude` / `dirExclude` trim what comes along.
 
+A manifest entry with a `url` field is an **external link** instead of a copied
+file — nothing is fetched or mirrored, and the card shows the host in place of
+size and date. That is how the `Website Kacamatamoo` category (preview, repo,
+PRD, PIC sheet) is wired.
+
 **The gate** is a Netlify Edge Function, so it runs before any static file is
 served: without a valid cookie, no document under `/internal-doc/` is delivered,
 even via a direct or shared URL. Password comes from the `INTERNAL_DOC_PASSWORD`

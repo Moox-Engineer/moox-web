@@ -104,7 +104,11 @@ async function main() {
     (DOCS[c.id] || []).map((d) => ({ ...d, category: c.id })),
   )
 
-  const missing = all.filter((d) => !existsSync(join(DOCS_ROOT, d.src)))
+  // Entri ber-`url` adalah tautan eksternal: tidak ada file yang disalin,
+  // tidak ada ukuran maupun tanggal. Hanya entri file yang lewat tahap salin.
+  const files = all.filter((d) => !d.url)
+
+  const missing = files.filter((d) => !existsSync(join(DOCS_ROOT, d.src)))
   if (missing.length) {
     console.error('File sumber berikut tidak ditemukan:')
     for (const m of missing) console.error(`  - ${m.src}`)
@@ -115,14 +119,14 @@ async function main() {
   await mkdir(DOCS_OUT, { recursive: true })
 
   // Folder dulu, supaya file tetangga (styles.css, assets/, _ds/) ikut.
-  for (const entry of all.filter((d) => d.dir)) await copyDir(entry)
-  for (const entry of all) {
+  for (const entry of files.filter((d) => d.dir)) await copyDir(entry)
+  for (const entry of files) {
     if (!existsSync(join(DOCS_OUT, entry.dest))) await copyFile(entry)
   }
 
   // Metadata dibaca dari file sumber, bukan hasil salinan, supaya tanggal
   // yang tampil adalah tanggal revisi dokumen.
-  for (const entry of all) {
+  for (const entry of files) {
     const st = statSync(join(DOCS_ROOT, entry.src))
     entry.size = st.size
     entry.mtime = st.mtime
@@ -131,8 +135,12 @@ async function main() {
   const html = renderIndex(all)
   await writeFile(join(OUT_ROOT, 'index.html'), html, 'utf8')
 
-  const total = all.reduce((n, d) => n + d.size, 0)
-  console.log(`${all.length} dokumen tersalin (${humanSize(total)}).`)
+  const total = files.reduce((n, d) => n + d.size, 0)
+  const links = all.length - files.length
+  console.log(
+    `${files.length} dokumen tersalin (${humanSize(total)})` +
+      (links ? `, ${links} tautan eksternal.` : '.'),
+  )
   for (const c of CATEGORIES) {
     console.log(`  ${String((DOCS[c.id] || []).length).padStart(2)}  ${c.label}`)
   }
@@ -141,7 +149,22 @@ async function main() {
 
 /* ── halaman direktori ───────────────────────────────────────────────── */
 
+function renderLink(d) {
+  const host = new URL(d.url).hostname.replace(/^www\./, '')
+  return `          <a class="doc doc--link" href="${esc(d.url)}" target="_blank" rel="noopener noreferrer"
+             data-search="${esc((d.title + ' ' + (d.note || '')).toLowerCase())}">
+            <span class="doc__title">${esc(d.title)}</span>
+            ${d.note ? `<span class="doc__note">${esc(d.note)}</span>` : ''}
+            <span class="doc__meta">
+              <span>Tautan eksternal</span>
+              <span class="doc__dot"></span>
+              <span>${esc(host)}</span>
+            </span>
+          </a>`
+}
+
 function renderCard(d) {
+  if (d.url) return renderLink(d)
   const href = `docs/${d.dest.split('/').map(encodeURIComponent).join('/')}`
   return `          <a class="doc" href="${esc(href)}" target="_blank" rel="noopener"
              data-search="${esc((d.title + ' ' + (d.note || '')).toLowerCase())}">
@@ -162,6 +185,8 @@ function renderChip(d) {
 }
 
 function renderIndex(all) {
+  const fileCount = all.filter((d) => !d.url).length
+  const linkCount = all.length - fileCount
   const sections = CATEGORIES.map((c) => {
     const items = all.filter((d) => d.category === c.id)
     const cards = items.filter((d) => !d.chip)
@@ -309,6 +334,10 @@ main{padding-bottom:5rem}
   font-family:var(--mono);font-size:.68rem;color:var(--slate-500);
 }
 .doc__dot{width:3px;height:3px;border-radius:50%;background:var(--slate-500);display:inline-block}
+.doc--link .doc__title::after{
+  content:'\\2197';font-family:var(--mono);font-size:.8em;color:var(--slate-500);margin-left:.35em;
+}
+.doc--link:hover .doc__title::after{color:var(--cyan-400)}
 
 .chips{margin-top:1.25rem}
 .chips__label{
@@ -359,7 +388,9 @@ footer{
   <div class="hero">
     <h1>Dokumen Internal MOOX</h1>
     <p>Kumpulan dokumen kerja MOOX dalam format HTML: deck, laporan, wireframe, aset visual, dan design system. Semua file dibuka langsung di browser.</p>
-    <p class="stamp">${all.length} dokumen · disinkronkan ${STAMP_FMT.format(new Date())} WIB</p>
+    <p class="stamp">${fileCount} dokumen${
+      linkCount ? ` · ${linkCount} tautan` : ''
+    } · disinkronkan ${STAMP_FMT.format(new Date())} WIB</p>
   </div>
   <nav class="jumps">
 ${nav}
