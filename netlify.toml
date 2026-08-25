@@ -4,3 +4,18 @@
 
 [build.environment]
   NODE_VERSION = "22"
+
+# /internal-doc kini situs tersendiri (folder internal-docs/, deploy sebagai
+# Netlify site kedua dengan base directory "internal-docs"). Ganti URL tujuan
+# di bawah dengan URL site itu setelah dibuat, agar tautan lama tetap hidup.
+[[redirects]]
+  from = "/internal-doc"
+  to = "https://moox-internal-docs.netlify.app"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/internal-doc/*"
+  to = "https://moox-internal-docs.netlify.app/:splat"
+  status = 301
+  force = true
