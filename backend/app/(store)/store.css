@@ -1,0 +1,114 @@
+/* Storefront chrome — same palette as the marketing site (slate/cyan). */
+
+.store {
+  --teal-700: #075056;
+  --cyan-300: #3ce0ec;
+  --cyan-400: #00cbdc;
+  --cyan-600: #008a97;
+  --slate-50: #f4f7f8;
+  --slate-100: #e7ecee;
+  --slate-300: #aebcc1;
+  --slate-400: #7e9097;
+  --slate-500: #5c6e75;
+  --slate-800: #232e32;
+  --slate-900: #161f22;
+  --slate-950: #0d1518;
+  --radius: 8px;
+  min-height: 100vh;
+  background: var(--slate-950);
+  color: var(--slate-50);
+  font-family: ui-sans-serif, system-ui, -apple-system, 'Segoe UI', sans-serif;
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+}
+
+.store a { color: inherit; text-decoration: none; }
+
+.store__nav {
+  position: sticky;
+  top: 0;
+  z-index: 10;
+  display: flex;
+  align-items: center;
+  gap: 1.25rem;
+  padding: 0.9rem clamp(1.25rem, 4vw, 3rem);
+  background: rgba(13, 21, 24, 0.88);
+  backdrop-filter: blur(12px);
+  border-bottom: 1px solid rgba(174, 188, 193, 0.12);
+}
+.store__brand { font-weight: 800; letter-spacing: -0.02em; }
+.store__brand span { color: var(--cyan-400); }
+.store__nav a:not(.store__brand) {
+  font-size: 0.85rem;
+  color: var(--slate-400);
+  transition: color 150ms;
+}
+.store__nav a:not(.store__brand):hover { color: var(--cyan-300); }
+.store__nav .spacer { margin-left: auto; }
+
+.store__main { max-width: 1120px; margin-inline: auto; padding: 2.5rem clamp(1.25rem, 4vw, 3rem) 5rem; }
+.store__kicker {
+  font-family: ui-monospace, monospace;
+  font-size: 0.7rem;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--cyan-400);
+}
+.store__h1 { font-size: clamp(1.8rem, 4vw, 2.5rem); font-weight: 800; letter-spacing: -0.02em; margin-top: 0.4rem; }
+.store__sub { color: var(--slate-400); margin-top: 0.5rem; max-width: 60ch; }
+
+/* product grid */
+.grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 1rem; margin-top: 2rem; }
+.card {
+  display: flex;
+  flex-direction: column;
+  background: var(--slate-900);
+  border: 1px solid rgba(174, 188, 193, 0.12);
+  border-radius: var(--radius);
+  overflow: hidden;
+  transition: border-color 200ms, transform 200ms;
+}
+.card:hover { border-color: var(--cyan-600); transform: translateY(-2px); }
+.card__img { aspect-ratio: 4 / 3; width: 100%; object-fit: cover; background: var(--slate-800); }
+.card__body { padding: 1rem 1.1rem 1.2rem; display: flex; flex-direction: column; gap: 0.35rem; flex: 1; }
+.card__name { font-weight: 600; }
+.card__cat { font-size: 0.72rem; font-family: ui-monospace, monospace; color: var(--slate-500); text-transform: uppercase; letter-spacing: 0.08em; }
+.price { font-weight: 700; }
+.price s { color: var(--slate-500); font-weight: 400; font-size: 0.85em; margin-left: 0.4rem; }
+.chip {
+  align-self: flex-start;
+  font-size: 0.72rem;
+  font-family: ui-monospace, monospace;
+  color: var(--cyan-400);
+  border: 1px solid rgba(0, 203, 220, 0.3);
+  border-radius: 999px;
+  padding: 0.1rem 0.55rem;
+}
+.chip--soon { color: var(--slate-400); border-color: rgba(174, 188, 193, 0.25); }
+
+/* detail */
+.detail { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 2.5rem; margin-top: 2rem; align-items: start; }
+@media (max-width: 800px) { .detail { grid-template-columns: 1fr; } }
+.detail__img { width: 100%; border-radius: var(--radius); border: 1px solid rgba(174, 188, 193, 0.12); background: var(--slate-800); }
+.detail__thumbs { display: flex; gap: 0.5rem; margin-top: 0.6rem; flex-wrap: wrap; }
+.detail__thumbs img { width: 72px; height: 54px; object-fit: cover; border-radius: 6px; border: 1px solid rgba(174, 188, 193, 0.15); }
+.detail__desc { color: var(--slate-300); margin-top: 1rem; }
+.detail__stock { font-family: ui-monospace, monospace; font-size: 0.78rem; color: var(--slate-400); margin-top: 0.75rem; }
+.detail__attrs { display: flex; flex-wrap: wrap; gap: 0.45rem; margin-top: 1rem; }
+
+.btn {
+  font: inherit;
+  font-weight: 600;
+  color: #04282c;
+  background: var(--cyan-400);
+  border: none;
+  border-radius: var(--radius);
+  padding: 0.75rem 1.4rem;
+  cursor: pointer;
+  margin-top: 1.5rem;
+  transition: background 150ms;
+}
+.btn:hover:not(:disabled) { background: var(--cyan-300); }
+.btn:disabled { opacity: 0.45; cursor: not-allowed; }
+.btn__note { font-size: 0.8rem; margin-left: 0.75rem; color: var(--slate-400); }
+.btn__note--ok { color: var(--cyan-400); }

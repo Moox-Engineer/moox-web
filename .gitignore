@@ -13,3 +13,6 @@ public/images/\[old\] *
 # Local Netlify folder
 .netlify
 deno.lock
+
+# zcode session dir
+.zcode/
