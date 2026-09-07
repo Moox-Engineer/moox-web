@@ -8,7 +8,8 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 npm run dev       # Start dev server on port 3000 (auto-opens browser)
 npm run build     # Build to dist/
 npm run preview   # Preview production build locally
-npm run sync-docs # Re-copy /internal-doc documents and regenerate its index
+npm run sync-docs # Re-copy /internal-doc documents, regenerate its index,
+                  # and push the private docs repo
 netlify dev       # Dev server WITH edge functions (needed to test /internal-doc)
 ```
 
@@ -47,17 +48,34 @@ All images live in `public/images/`. Three product lines: `akasa-*`, `axela-*`, 
 A directory of MOOX internal working documents (decks, reports, wireframes,
 visual assets, design system), served as plain HTML files.
 
+**This repo is public. No internal document, and nothing that names one, lives
+in it.** The documents and the manifest that lists their titles live in the
+private repo `Moox-Engineer/moox-internal-docs`. Only the generator — which
+mentions no document at all — stays here.
+
 | Path | Role |
 |---|---|
-| `scripts/internal-docs-manifest.mjs` | The list: category, title, note, source path, destination path. Edit this to add or remove a document. |
-| `scripts/sync-internal-docs.mjs` | Copies source files into `public/internal-doc/docs/` and regenerates `public/internal-doc/index.html`. |
-| `public/internal-doc/` | Generated output. Do not hand-edit `index.html`; change the manifest and re-sync. |
+| `moox-internal-docs/manifest.mjs` (private repo) | The list: category, title, note, source path, destination path. Edit this to add or remove a document. |
+| `moox-internal-docs/internal-doc/` (private repo) | Generated output that ships to production. Do not hand-edit `index.html`; change the manifest and re-sync. |
+| `scripts/sync-internal-docs.mjs` | Reads the manifest, copies source files, regenerates the index, then commits and pushes the private repo. |
+| `scripts/fetch-internal-docs.mjs` | Runs at build time. Clones the private repo with a read-only deploy key and drops `internal-doc/` into `public/`. |
+| `public/internal-doc/` | Local working copy only. Gitignored — never commit it. |
 | `netlify/edge-functions/internal-doc-auth.js` | The password gate. |
 
-Source documents live **outside this repo**, in the `moox product plan` folder.
-`sync-docs` defaults to `/Users/klinikpintar/Documents/projects/moox product plan`
-and honors `MOOX_DOCS_ROOT`. The script fails loudly if a manifest entry points
-at a file that no longer exists, which is the intended way to catch renames.
+Two source locations, and they are different things. The **documents** come from
+the `moox product plan` folder, outside any repo: `sync-docs` defaults to
+`/Users/klinikpintar/Documents/projects/moox product plan` and honors
+`MOOX_DOCS_ROOT`. The **manifest** comes from the private repo checkout, expected
+at `../moox-internal-docs` and overridable with `MOOX_INTERNAL_DOCS_REPO`. Both
+scripts fail loudly rather than quietly producing an empty directory — a manifest
+entry pointing at a renamed file stops the sync, and a Netlify build without
+`INTERNAL_DOCS_DEPLOY_KEY` stops the build.
+
+`npm run sync-docs` writes to both places: the private repo (committed and
+pushed for you) and `public/internal-doc/` (so `npm run dev` shows the same
+thing). Pushing the private repo does not by itself trigger a deploy — Netlify
+builds from *this* repo, so the new documents land on the next `moox-web`
+deploy or a manually triggered one.
 
 Some documents depend on sibling files (`styles.css`, `assets/`, `_ds/`,
 `support.js`). Those entries carry a `dir` field so the whole folder is copied
@@ -71,7 +89,9 @@ PRD, PIC sheet) is wired.
 **The gate** is a Netlify Edge Function, so it runs before any static file is
 served: without a valid cookie, no document under `/internal-doc/` is delivered,
 even via a direct or shared URL. Password comes from the `INTERNAL_DOC_PASSWORD`
-environment variable in Netlify, falling back to a default in the file. The
+environment variable in Netlify. There is deliberately no default in the file:
+this repo is public, so a fallback password would be a published one. With the
+variable unset the gate returns 503 and serves nothing, rather than opening. The
 cookie stores a SHA-256 hash, is `HttpOnly`, and expires after 12 hours.
 `/internal-doc/logout` clears it. Routing is declared by the `config.path` export
 inside the function, not in `netlify.toml`.
@@ -82,4 +102,15 @@ response, `public/_headers` repeats it for the path, and the index carries a
 
 ### Deployment
 
-Netlify static hosting. Build output is `dist/`. Netlify Forms handles the collaboration form (`data-netlify="true"`).
+Netlify static hosting (project `mooxweb`, `eyesonmoox.com`). Build output is
+`dist/`; the build command is `npm run build:netlify`, which fetches the internal
+documents before running Vite. Netlify Forms handles the collaboration form
+(`data-netlify="true"`).
+
+This repo is public specifically so Netlify's free plan will keep deploying it —
+the free plan refuses continuous deployment from an organization-owned *private*
+repo, which is what forced the document split described above. Two environment
+variables in Netlify make it work: `INTERNAL_DOC_PASSWORD` and
+`INTERNAL_DOCS_DEPLOY_KEY` (base64 of an OpenSSH private key whose public half is
+a read-only deploy key on `moox-internal-docs`). Losing either breaks
+`/internal-doc` loudly, not silently.

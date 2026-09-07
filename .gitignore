@@ -13,3 +13,10 @@ public/images/\[old\] *
 # Local Netlify folder
 .netlify
 deno.lock
+
+# Dokumen internal. Repo ini PUBLIK; dokumen dan manifest yang menyebut
+# judul-judulnya tinggal di Moox-Engineer/moox-internal-docs yang privat.
+# Folder di bawah ini cuma salinan kerja hasil `npm run sync-docs`, dan
+# diisi ulang saat build Netlify oleh scripts/fetch-internal-docs.mjs.
+public/internal-doc/
+scripts/internal-docs-manifest.mjs

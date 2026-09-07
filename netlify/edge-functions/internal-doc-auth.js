@@ -7,7 +7,9 @@
  * dari gerbang di sisi browser, yang hanya menyembunyikan tampilan.
  *
  * Password diambil dari environment variable INTERNAL_DOC_PASSWORD di Netlify.
- * Kalau variable itu belum diset, dipakai nilai bawaan di bawah.
+ * Sengaja tidak ada nilai bawaan di file ini: repo ini publik, jadi apa pun
+ * yang ditulis di sini sama saja dengan mengumumkan passwordnya. Kalau
+ * variable itu hilang, gerbang menolak semua orang, bukan membuka pintu.
  *
  * Cookie menyimpan hash SHA-256 dari password, bukan passwordnya. Cookie
  * bersifat HttpOnly sehingga tidak terbaca oleh JavaScript halaman.
@@ -15,7 +17,6 @@
 
 const COOKIE_NAME = 'mx_idoc'
 const MAX_AGE = 60 * 60 * 12 // 12 jam
-const DEFAULT_PASSWORD = '<dihapus dari riwayat>'
 const NOINDEX = 'noindex, nofollow, noarchive'
 
 async function tokenFor(password) {
@@ -126,6 +127,30 @@ button:hover{background:#3CE0EC}
 `
 }
 
+function misconfiguredPage() {
+  return `<!doctype html>
+<html lang="id">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="${NOINDEX}">
+<title>Internal Docs · MOOX</title>
+<style>
+body{font-family:ui-sans-serif,system-ui,sans-serif;background:#0D1518;color:#F4F7F8;
+min-height:100vh;display:grid;place-items:center;padding:1.5rem;text-align:center;line-height:1.6}
+p{color:#7E9097;font-size:.875rem;margin-top:.6rem;max-width:42ch}
+</style>
+</head>
+<body>
+  <div>
+    <h1>Gerbang belum dikonfigurasi</h1>
+    <p>INTERNAL_DOC_PASSWORD belum diset di Netlify, jadi tidak ada dokumen yang dilayani.</p>
+  </div>
+</body>
+</html>
+`
+}
+
 function htmlResponse(body, status) {
   return new Response(body, {
     status,
@@ -139,7 +164,14 @@ function htmlResponse(body, status) {
 
 export default async function internalDocAuth(request, context) {
   const url = new URL(request.url)
-  const password = Netlify.env.get('INTERNAL_DOC_PASSWORD') || DEFAULT_PASSWORD
+  const password = Netlify.env.get('INTERNAL_DOC_PASSWORD')
+
+  // Fail closed. Tanpa password yang diset, tidak ada yang boleh lewat —
+  // termasuk kalau env variable-nya terhapus saat mengutak-atik Netlify.
+  if (!password) {
+    return htmlResponse(misconfiguredPage(), 503)
+  }
+
   const expected = await tokenFor(password)
   const secure = url.protocol === 'https:' ? ' Secure;' : ''
   const cookieBase = `${COOKIE_NAME}=`

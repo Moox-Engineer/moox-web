@@ -1,25 +1,54 @@
 #!/usr/bin/env node
 /**
- * Menyalin dokumen internal dari folder "moox product plan" ke
- * public/internal-doc/docs/, lalu meregenerasi halaman direktori
- * public/internal-doc/index.html dari manifest.
+ * Menyalin dokumen internal dari folder "moox product plan" ke repo privat
+ * moox-internal-docs, lalu meregenerasi halaman direktorinya dari manifest.
  *
  *   npm run sync-docs
  *   MOOX_DOCS_ROOT="/path/lain" npm run sync-docs
  *
+ * Hasilnya ditulis ke DUA tempat: checkout repo privat (yang lalu di-commit
+ * dan di-push) dan public/internal-doc/ di repo ini supaya bisa langsung
+ * dilihat lewat `npm run dev`. Yang kedua tidak ikut git — repo ini publik,
+ * dan dokumen internal tidak boleh masuk ke sana.
+ *
+ * Manifest sendiri tinggal di repo privat, karena judul dan catatannya pun
+ * membocorkan isi. Skrip ini hanya generatornya, dan tidak menyebut satu
+ * dokumen pun.
+ *
  * Halaman direktori digenerate penuh setiap kali dijalankan. Jangan mengedit
- * public/internal-doc/index.html dengan tangan: ubah manifest, lalu sync ulang.
+ * index.html dengan tangan: ubah manifest.mjs di repo privat, lalu sync ulang.
  */
 
 import { existsSync, statSync } from 'node:fs'
 import { cp, mkdir, rm, writeFile } from 'node:fs/promises'
+import { execFileSync } from 'node:child_process'
 import { dirname, join, resolve } from 'node:path'
-import { fileURLToPath } from 'node:url'
-import { CATEGORIES, DOCS } from './internal-docs-manifest.mjs'
+import { fileURLToPath, pathToFileURL } from 'node:url'
 
 const REPO_ROOT = resolve(dirname(fileURLToPath(import.meta.url)), '..')
-const OUT_ROOT = join(REPO_ROOT, 'public', 'internal-doc')
+
+/** Checkout repo privat Moox-Engineer/moox-internal-docs. */
+const DOCS_REPO_ROOT = resolve(
+  process.env.MOOX_INTERNAL_DOCS_REPO || join(REPO_ROOT, '..', 'moox-internal-docs'),
+)
+
+if (!existsSync(join(DOCS_REPO_ROOT, 'manifest.mjs'))) {
+  console.error(`Repo dokumen privat tidak ditemukan di: ${DOCS_REPO_ROOT}`)
+  console.error('Clone dulu:')
+  console.error('  git clone git@github.com:Moox-Engineer/moox-internal-docs.git')
+  console.error('atau set MOOX_INTERNAL_DOCS_REPO ke lokasi checkout-nya.')
+  process.exit(1)
+}
+
+const { CATEGORIES, DOCS } = await import(
+  pathToFileURL(join(DOCS_REPO_ROOT, 'manifest.mjs')).href
+)
+
+const OUT_ROOT = join(DOCS_REPO_ROOT, 'internal-doc')
 const DOCS_OUT = join(OUT_ROOT, 'docs')
+
+/** Salinan kerja di repo ini, supaya `npm run dev` bisa membukanya. Digitignore. */
+const PREVIEW_ROOT = join(REPO_ROOT, 'public', 'internal-doc')
 
 const DOCS_ROOT =
   process.env.MOOX_DOCS_ROOT ||
@@ -144,7 +173,41 @@ async function main() {
   for (const c of CATEGORIES) {
     console.log(`  ${String((DOCS[c.id] || []).length).padStart(2)}  ${c.label}`)
   }
+  // Salinan kerja lokal, supaya `npm run dev` menampilkan hasil yang sama.
+  await rm(PREVIEW_ROOT, { recursive: true, force: true })
+  await cp(OUT_ROOT, PREVIEW_ROOT, { recursive: true })
+
   console.log(`\nDirektori: ${join(OUT_ROOT, 'index.html')}`)
+  publish()
+}
+
+/* ── terbitkan ke repo privat ────────────────────────────────────────── */
+
+/**
+ * Commit dan push hasil sync ke moox-internal-docs. Repo itulah yang dibaca
+ * Netlify saat build, jadi perubahan yang tidak di-push tidak akan terbit.
+ */
+function publish() {
+  const git = (...args) =>
+    execFileSync('git', args, { cwd: DOCS_REPO_ROOT, encoding: 'utf8' }).trim()
+
+  try {
+    if (!git('status', '--porcelain')) {
+      console.log('Repo dokumen: tidak ada perubahan, tidak ada yang di-push.')
+      return
+    }
+    git('add', '-A')
+    const n = git('diff', '--cached', '--numstat').split('\n').filter(Boolean).length
+    git('commit', '-q', '-m', `Sync dokumen internal (${n} file berubah)`)
+    git('push', '-q', 'origin', 'HEAD')
+    console.log(`Repo dokumen: ${n} file di-push ke moox-internal-docs.`)
+    console.log('Deploy Netlify berikutnya akan memuat versi ini.')
+  } catch (err) {
+    console.error('\nGagal push ke repo dokumen privat:')
+    console.error(err.stderr || err.message)
+    console.error(`Perbaiki manual di ${DOCS_REPO_ROOT}, lalu push.`)
+    process.exitCode = 1
+  }
 }
 
 /* ── halaman direktori ───────────────────────────────────────────────── */
