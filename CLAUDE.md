@@ -20,6 +20,11 @@ plain Vite. Use `netlify dev` when touching the gate.
 
 ## Architecture
 
+> **Not production anymore.** Since late Sep 2026 eyesonmoox.com is served by
+> `Moox-Engineer/moox-web-new` (React + Vite, Cloudflare Workers, deploys from its
+> `prod` branch). This repo still deploys to `mooxweb.netlify.app` only. Changes
+> meant for the live site belong in moox-web-new.
+
 **moox-web** is a vanilla JavaScript marketing site for MOOX smart glasses, built with Vite. There is no framework (no React, Vue, or TypeScript) — just `index.html`, modular JS, and a CSS design system.
 
 ### Entry points
@@ -102,7 +107,9 @@ response, `public/_headers` repeats it for the path, and the index carries a
 
 ### Deployment
 
-Netlify static hosting (project `mooxweb`, `eyesonmoox.com`). Build output is
+Netlify static hosting (project `mooxweb`, `mooxweb.netlify.app`; no longer
+`eyesonmoox.com`, see the note at the top). No Google Analytics tag here: the
+GA4 stream belongs to the live site, and this copy would pollute it. Build output is
 `dist/`; the build command is `npm run build:netlify`, which fetches the internal
 documents before running Vite. Netlify Forms handles the collaboration form
 (`data-netlify="true"`).
